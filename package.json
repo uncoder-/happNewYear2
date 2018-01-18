@@ -1,0 +1,11 @@
+{
+  "name": "happynewyear",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "uncoder",
+  "license": "ISC",
+  "dependencies": {
+    "gsap": "^1.20.3"
+  }
+}
