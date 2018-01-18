@@ -2,7 +2,7 @@
  * @Author: uncoder 
  * @Date: 2018-01-17 15:38:47 
  * @Last Modified by: uncoder
- * @Last Modified time: 2018-01-18 17:24:22
+ * @Last Modified time: 2018-01-18 17:27:37
  */
 // 获取浏览器窗口的宽高，后续会用
 var width = window.innerWidth;

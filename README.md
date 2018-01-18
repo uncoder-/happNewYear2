@@ -1,4 +1,8 @@
-# threejs学习
+# 介绍
+
+这个是3d的，2d在[这里](https://github.com/uncoder-/happyNewYear)
+
+## threejs学习
 
 ## 坐标系
   1. 右手坐标系
