@@ -2,8 +2,11 @@
  * @Author: uncoder 
  * @Date: 2018-01-17 15:38:47 
  * @Last Modified by: uncoder
- * @Last Modified time: 2018-01-18 15:08:21
+ * @Last Modified time: 2018-01-18 17:24:22
  */
+// 获取浏览器窗口的宽高，后续会用
+var width = window.innerWidth;
+var height = window.innerHeight;
 // 初始化 stats
 function initStats() {
     var stats = new Stats();
@@ -80,14 +83,16 @@ function createSnow2() {
         // 雪花
         var sprite = new THREE.Sprite(spriteMaterial);
         var x = Math.random() * 2000 - 1000;
-        var y = Math.random() * 2000 - 1000;
+        var y = height;
         var z = Math.random() * 2000 - 1000;
         // 初始位置坐标
         sprite.position.set(x, y, z);
         // 存储延迟移动时间
-        sprite.delayMoveTime = 5;
+        sprite.delayMoveTime = Math.round(Math.random() * height);
+        // 存储计算值，方便动画时候计算
+        sprite.delayCount = 0;
         // 存储原始坐标
-        sprite.originPosition = { x: x, y: y, z: z }
+        sprite.originPosition = { x: x, y: y, z: z };
         // 精灵大小
         sprite.scale.set(50, 50, 5);
         group.add(sprite);
@@ -103,9 +108,6 @@ window.onload = function () {
     // 因此需要我们对加载的字体进行删减优化
     var loader = new THREE.FontLoader();
     loader.load('fonts/font.json', function (font) {
-        // 获取浏览器窗口的宽高，后续会用
-        var width = window.innerWidth;
-        var height = window.innerHeight;
         var camera, scene, renderer, snowPoints;
         var step = 0;
 
@@ -153,22 +155,26 @@ window.onload = function () {
         function render() {
             var time = Date.now() * 0.00005;
             // 动画补偿
-            step += 0.01;
-            if (step > 5) {
-                step = 0;
-            }
+            step += 1;
             for (var i = 0, l = snowPoints.children.length; i < l; i++) {
                 var sprite = snowPoints.children[i];
+                var delayCount = sprite.delayCount;
+                var delayMoveTime = sprite.delayMoveTime;
+                var position = sprite.position;
                 var material = sprite.material;
-                var scale = Math.sin(step) * 0.3 + 10;
                 sprite.material.rotation += 0.01 * (i / l);
-                if (step != 0) {
-                    sprite.position.y -= step;
-                    sprite.position.x -= step;
-                } else {
-                    sprite.position.y = Math.random() * 2000 - 666;
-                    sprite.position.x = Math.random() * 2000 - 666;
+                if (delayCount < delayMoveTime) {
+                    delayCount++;
+                    sprite.delayCount = delayCount;
+                    continue;
                 }
+                if (position.y > 0) {
+                    sprite.position.y -= 1.5;
+                    sprite.position.x -= Math.sin(step / 360 * 2 * Math.PI) * 1;
+                } else {
+                    sprite.position.y = height;
+                }
+                var scale = Math.sin(step) * 0.3 + 10;
                 sprite.scale.set(scale, scale, 1.0);
             }
             // snowPoints.rotation.x = time * 0.75;
