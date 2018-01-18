@@ -2,7 +2,7 @@
  * @Author: uncoder 
  * @Date: 2018-01-17 15:38:47 
  * @Last Modified by: uncoder
- * @Last Modified time: 2018-01-18 14:36:55
+ * @Last Modified time: 2018-01-18 15:05:10
  */
 // 初始化 stats
 function initStats() {
@@ -95,22 +95,24 @@ function createSnow2() {
 }
 
 window.onload = function () {
+    // 初始化 stats
+    var stats = initStats();
     // look there
     var loader = new THREE.FontLoader();
     loader.load('fonts/font.json', function (font) {
-        // 初始化 stats
-        var stats = initStats();
+
         // 获取浏览器窗口的宽高，后续会用
         var width = window.innerWidth;
         var height = window.innerHeight;
         var camera, scene, renderer, snowPoints;
         var step = 0;
-        
-        init(font);    
+
+        init(font);
+        animate();
         // 初始化
         function init(font) {
             // 创建一个渲染器
-            var renderer = new THREE.WebGLRenderer();
+            renderer = new THREE.WebGLRenderer();
             // 设置渲染器的清除颜色（即背景色）,尺寸,清晰度
             // renderer.setClearColor(0xffffff);
             renderer.setPixelRatio(window.devicePixelRatio);
@@ -119,12 +121,12 @@ window.onload = function () {
             document.body.appendChild(renderer.domElement);
 
             // 创建一个场景
-            var scene = new THREE.Scene();
+            scene = new THREE.Scene();
 
             // 创建一个具有透视效果的摄像机
             var fav = 45;
             var aspect = width / height;
-            var camera = new THREE.PerspectiveCamera(fav, aspect, 0.1, 1500);
+            camera = new THREE.PerspectiveCamera(fav, aspect, 0.1, 1500);
             camera.position.set(999, 333, 999);
             camera.lookAt(new THREE.Vector3(0, 0, 0));
 
@@ -138,41 +140,39 @@ window.onload = function () {
             var controls = new THREE.OrbitControls(camera, renderer.domElement);
             // controls.target = new THREE.Vector3(222, 222, 222);
             // controls.maxPolarAngle = Math.PI / 2;
-
-            animate();
-            // 动画
-            function animate() {
-                requestAnimationFrame(animate);
-                render();
-                stats.update();
+        }
+        // 动画
+        function animate() {
+            stats.update();
+            requestAnimationFrame(animate);
+            render();
+        }
+        // 渲染
+        function render() {
+            var time = Date.now() * 0.00005;
+            // 动画补偿
+            step += 0.01;
+            if (step > 5) {
+                step = 0;
             }
-            // 渲染
-            function render() {
-                var time = Date.now() * 0.00005;
-                // 动画补偿
-                step += 0.01;
-                if (step > 5) {
-                    step = 0;
+            for (var i = 0, l = snowPoints.children.length; i < l; i++) {
+                var sprite = snowPoints.children[i];
+                var material = sprite.material;
+                var scale = Math.sin(step) * 0.3 + 10;
+                sprite.material.rotation += 0.01 * (i / l);
+                if (step != 0) {
+                    sprite.position.y -= step;
+                    sprite.position.x -= step;
+                } else {
+                    sprite.position.y = Math.random() * 2000 - 666;
+                    sprite.position.x = Math.random() * 2000 - 666;
                 }
-                for (var i = 0, l = snowPoints.children.length; i < l; i++) {
-                    var sprite = snowPoints.children[i];
-                    var material = sprite.material;
-                    var scale = Math.sin(step) * 0.3 + 10;
-                    sprite.material.rotation += 0.01 * (i / l);
-                    if (step != 0) {
-                        sprite.position.y -= step;
-                        sprite.position.x -= step;
-                    } else {
-                        sprite.position.y = Math.random() * 2000 - 666;
-                        sprite.position.x = Math.random() * 2000 - 666;
-                    }
-                    sprite.scale.set(scale, scale, 1.0);
-                }
-                // snowPoints.rotation.x = time * 0.75;
-                // 渲染，即摄像机拍下此刻的场景
-                renderer.clear();
-                renderer.render(scene, camera);
+                sprite.scale.set(scale, scale, 1.0);
             }
+            // snowPoints.rotation.x = time * 0.75;
+            // 渲染，即摄像机拍下此刻的场景
+            renderer.clear();
+            renderer.render(scene, camera);
         }
     })
 }
