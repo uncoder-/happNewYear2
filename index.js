@@ -2,7 +2,7 @@
  * @Author: uncoder 
  * @Date: 2018-01-17 15:38:47 
  * @Last Modified by: uncoder
- * @Last Modified time: 2018-01-18 17:27:37
+ * @Last Modified time: 2018-01-18 17:33:49
  */
 // 获取浏览器窗口的宽高，后续会用
 var width = window.innerWidth;
@@ -162,7 +162,8 @@ window.onload = function () {
                 var delayMoveTime = sprite.delayMoveTime;
                 var position = sprite.position;
                 var material = sprite.material;
-                sprite.material.rotation += 0.01 * (i / l);
+                // 自转圈圈
+                material.rotation += 0.01 * (i / l);
                 if (delayCount < delayMoveTime) {
                     delayCount++;
                     sprite.delayCount = delayCount;
