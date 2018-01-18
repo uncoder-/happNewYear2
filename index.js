@@ -2,7 +2,7 @@
  * @Author: uncoder 
  * @Date: 2018-01-17 15:38:47 
  * @Last Modified by: uncoder
- * @Last Modified time: 2018-01-18 21:54:20
+ * @Last Modified time: 2018-01-18 21:57:15
  */
 // 获取浏览器窗口的宽高，后续会用
 var width = window.innerWidth;
@@ -212,7 +212,7 @@ window.onload = function () {
                 } else {
                     sprite.position.y = Math.random() * height + 500;
                 }
-                var scale = Math.sin(step) * 0.3 + 15;
+                var scale = Math.sin(step) * 0.35 + 15;
                 sprite.scale.set(scale, scale, 1.0);
             }
         }
