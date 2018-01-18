@@ -2,7 +2,7 @@
  * @Author: uncoder 
  * @Date: 2018-01-17 15:38:47 
  * @Last Modified by: uncoder
- * @Last Modified time: 2018-01-18 15:05:10
+ * @Last Modified time: 2018-01-18 15:08:21
  */
 // 初始化 stats
 function initStats() {
@@ -67,6 +67,7 @@ function createSnow() {
     }
     return snow;
 }
+// 雪花2
 function createSnow2() {
     var group = new THREE.Group();
     // 参数
@@ -97,10 +98,11 @@ function createSnow2() {
 window.onload = function () {
     // 初始化 stats
     var stats = initStats();
-    // look there
+    // 字体需要异步加载后使用，因此我这里就先加载了字体。
+    // 再来初始化，可能造成等待时间过长，
+    // 因此需要我们对加载的字体进行删减优化
     var loader = new THREE.FontLoader();
     loader.load('fonts/font.json', function (font) {
-
         // 获取浏览器窗口的宽高，后续会用
         var width = window.innerWidth;
         var height = window.innerHeight;
