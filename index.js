@@ -2,7 +2,7 @@
  * @Author: uncoder 
  * @Date: 2018-01-17 15:38:47 
  * @Last Modified by: uncoder
- * @Last Modified time: 2018-01-18 17:33:49
+ * @Last Modified time: 2018-01-18 17:44:11
  */
 // 获取浏览器窗口的宽高，后续会用
 var width = window.innerWidth;
@@ -131,7 +131,7 @@ window.onload = function () {
             var fav = 45;
             var aspect = width / height;
             camera = new THREE.PerspectiveCamera(fav, aspect, 0.1, 1500);
-            camera.position.set(999, 333, 999);
+            camera.position.set(1000, 500, 1000);
             camera.lookAt(new THREE.Vector3(0, 0, 0));
 
             // 坐标轴
