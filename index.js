@@ -2,7 +2,7 @@
  * @Author: uncoder 
  * @Date: 2018-01-17 15:38:47 
  * @Last Modified by: uncoder
- * @Last Modified time: 2018-01-18 17:44:11
+ * @Last Modified time: 2018-01-18 20:44:10
  */
 // 获取浏览器窗口的宽高，后续会用
 var width = window.innerWidth;
@@ -94,9 +94,30 @@ function createSnow2() {
         // 存储原始坐标
         sprite.originPosition = { x: x, y: y, z: z };
         // 精灵大小
-        sprite.scale.set(50, 50, 5);
+        // sprite.scale.set(50, 50, 5);
         group.add(sprite);
     }
+    return group;
+}
+// 单身狗
+function createDog() {
+    var group = new THREE.Group();
+    // 头
+    var geometry = new THREE.SphereGeometry(50, 32, 32);
+    var material = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+    var head = new THREE.Mesh(geometry, material);
+    head.position.set(200, 300, 200)
+    group.add(head);
+    // 身子
+    var geometry = new THREE.BoxGeometry(100, 100, 100);
+    var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+    var body = new THREE.Mesh(geometry, material);
+    body.position.set(200, 200, 200)
+    group.add(body);
+    // 左手
+    // 右手
+    // 左腿
+    // 右腿
     return group;
 }
 
@@ -108,7 +129,7 @@ window.onload = function () {
     // 因此需要我们对加载的字体进行删减优化
     var loader = new THREE.FontLoader();
     loader.load('fonts/font.json', function (font) {
-        var camera, scene, renderer, snowPoints;
+        var camera, scene, renderer, snowPoints, controls;
         var step = 0;
 
         init(font);
@@ -130,8 +151,8 @@ window.onload = function () {
             // 创建一个具有透视效果的摄像机
             var fav = 45;
             var aspect = width / height;
-            camera = new THREE.PerspectiveCamera(fav, aspect, 0.1, 1500);
-            camera.position.set(1000, 500, 1000);
+            camera = new THREE.PerspectiveCamera(fav, aspect, 0.1, 2500);
+            camera.position.set(1500, 500, 1500);
             camera.lookAt(new THREE.Vector3(0, 0, 0));
 
             // 坐标轴
@@ -140,19 +161,31 @@ window.onload = function () {
             // 雪花
             snowPoints = createSnow2();
             scene.add(snowPoints);
+            // 小个子
+            var dog = createDog();
+            scene.add(dog);
             // 交互
-            var controls = new THREE.OrbitControls(camera, renderer.domElement);
-            // controls.target = new THREE.Vector3(222, 222, 222);
-            // controls.maxPolarAngle = Math.PI / 2;
+            controls = new THREE.OrbitControls(camera);
+            controls.target.set(0, 0, 0);
+            controls.autoRotate = true;
+            controls.autoRotateSpeed = 0.5;
+            controls.maxPolarAngle = 90 * Math.PI / 180;
+            controls.minPolarAngle = 45 * Math.PI / 180;
         }
         // 动画
         function animate() {
             stats.update();
+            controls.update();
             requestAnimationFrame(animate);
-            render();
+            // 雪花
+            renderSnow();
+            // snowPoints.rotation.x = time * 0.75;
+            // 渲染，即摄像机拍下此刻的场景
+            renderer.clear();
+            renderer.render(scene, camera);
         }
-        // 渲染
-        function render() {
+        // 渲染雪花
+        function renderSnow() {
             var time = Date.now() * 0.00005;
             // 动画补偿
             step += 1;
@@ -178,10 +211,6 @@ window.onload = function () {
                 var scale = Math.sin(step) * 0.3 + 10;
                 sprite.scale.set(scale, scale, 1.0);
             }
-            // snowPoints.rotation.x = time * 0.75;
-            // 渲染，即摄像机拍下此刻的场景
-            renderer.clear();
-            renderer.render(scene, camera);
         }
     })
 }
