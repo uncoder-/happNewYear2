@@ -2,7 +2,7 @@
  * @Author: uncoder 
  * @Date: 2018-01-17 15:38:47 
  * @Last Modified by: uncoder
- * @Last Modified time: 2018-01-19 14:32:54
+ * @Last Modified time: 2018-01-19 14:40:56
  */
 // 获取浏览器窗口的宽高，后续会用
 var width = window.innerWidth;
@@ -40,14 +40,14 @@ function createPlane() {
 
     var geometry = new THREE.ShapeBufferGeometry(heartShape);
     var material = new THREE.MeshBasicMaterial({
-        color: 0xff0000
+        color: 0xff2200
     });
     var plane = new THREE.Mesh(geometry, material);
     // 以自身中心为旋转轴，绕 x 轴顺时针旋转 45 度
     plane.rotation.x = -0.5 * Math.PI;
     plane.rotation.z = -0.75 * Math.PI;
-    plane.scale.set(15, 10, 15);
-    plane.position.set(250, 0, 250);
+    plane.scale.set(30, 30, 30);
+    plane.position.set(50, 0, 280);
     return plane;
 }
 // 雪花
