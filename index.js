@@ -2,7 +2,7 @@
  * @Author: uncoder 
  * @Date: 2018-01-17 15:38:47 
  * @Last Modified by: uncoder
- * @Last Modified time: 2018-01-19 14:15:20
+ * @Last Modified time: 2018-01-19 14:32:54
  */
 // 获取浏览器窗口的宽高，后续会用
 var width = window.innerWidth;
@@ -24,20 +24,30 @@ function setAxis() {
     var axisHelper = new THREE.AxesHelper(600);
     return axisHelper;
 }
-// 平面
+// 地面
 function createPlane() {
-    // 创建一个平面 PlaneGeometry(width, height, widthSegments, heightSegments)
-    var planeGeometry = new THREE.PlaneGeometry(1550, 1550, 1, 1);
+    var x = 0, y = 0;
 
-    // 创建 Lambert 材质：会对场景中的光源作出反应，但表现为暗淡，而不光亮。
-    var planeMaterial = new THREE.MeshLambertMaterial({
-        color: 0xffffff
+    var heartShape = new THREE.Shape();
+
+    heartShape.moveTo(x + 5, y + 5);
+    heartShape.bezierCurveTo(x + 5, y + 5, x + 4, y, x, y);
+    heartShape.bezierCurveTo(x - 6, y, x - 6, y + 7, x - 6, y + 7);
+    heartShape.bezierCurveTo(x - 6, y + 11, x - 3, y + 15.4, x + 5, y + 19);
+    heartShape.bezierCurveTo(x + 12, y + 15.4, x + 16, y + 11, x + 16, y + 7);
+    heartShape.bezierCurveTo(x + 16, y + 7, x + 16, y, x + 10, y);
+    heartShape.bezierCurveTo(x + 7, y, x + 5, y + 5, x + 5, y + 5);
+
+    var geometry = new THREE.ShapeBufferGeometry(heartShape);
+    var material = new THREE.MeshBasicMaterial({
+        color: 0xff0000
     });
-    var plane = new THREE.Mesh(planeGeometry, planeMaterial);
-
+    var plane = new THREE.Mesh(geometry, material);
     // 以自身中心为旋转轴，绕 x 轴顺时针旋转 45 度
     plane.rotation.x = -0.5 * Math.PI;
-    plane.position.set(0, -10.5, -20);
+    plane.rotation.z = -0.75 * Math.PI;
+    plane.scale.set(15, 10, 15);
+    plane.position.set(250, 0, 250);
     return plane;
 }
 // 雪花
@@ -104,7 +114,7 @@ function createSnow2() {
 // 单身狗
 function createWish() {
     var group = new THREE.Group();
-    
+
     return group;
 }
 
@@ -147,6 +157,9 @@ window.onload = function () {
             // 坐标轴
             var axis = setAxis();
             scene.add(axis);
+            // 地面
+            var plane = createPlane();
+            scene.add(plane);
             // 雪花
             snowPoints = createSnow2();
             scene.add(snowPoints);
