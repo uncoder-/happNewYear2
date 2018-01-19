@@ -2,7 +2,7 @@
  * @Author: uncoder 
  * @Date: 2018-01-17 15:38:47 
  * @Last Modified by: uncoder
- * @Last Modified time: 2018-01-19 15:11:49
+ * @Last Modified time: 2018-01-19 15:50:17
  */
 // 获取浏览器窗口的宽高，后续会用
 var width = window.innerWidth;
@@ -46,8 +46,8 @@ function createPlane() {
     // 以自身中心为旋转轴，绕 x 轴顺时针旋转 45 度
     plane.rotation.x = -0.5 * Math.PI;
     plane.rotation.z = -0.75 * Math.PI;
-    plane.scale.set(26, 30, 26);
-    plane.position.set(0, 0, 310);
+    plane.scale.set(15, 16, 15);
+    plane.position.set(-50, 0, 210);
     return plane;
 }
 // 雪花
@@ -111,13 +111,37 @@ function createSnow2() {
     }
     return group;
 }
-// 单身狗
-function createWish() {
+// 祝福语
+function createWish(font) {
     var group = new THREE.Group();
-
+    var textGeo = new THREE.TextGeometry('小傻师哥', {
+        font: font,
+        size: 45,
+        height: 10
+    });
+    var materials = [
+        new THREE.MeshPhongMaterial({ color: 0xffffff, flatShading: true }), // front
+        new THREE.MeshPhongMaterial({ color: 0xffffff }) // side
+    ];
+    var textMesh1 = new THREE.Mesh(textGeo, materials);
+    textMesh1.position.set(0, 600, 0);
+    textMesh1.rotation.y = 0.1 * Math.PI;
+    textMesh1.position.x = -250;
+    group.add(textMesh1);
     return group;
 }
+// 灯光
+function createLight() {
+    var group = new THREE.Group();
+    var dirLight = new THREE.DirectionalLight(0xffffff, 0.15);
+    dirLight.position.set(0, 0, 1).normalize();
+    group.add(dirLight);
 
+    var pointLight = new THREE.PointLight(0xff0000, 1.5);
+    pointLight.position.set(999, 999, 999);
+    group.add(pointLight);
+    return group;
+}
 window.onload = function () {
     // 初始化 stats
     var stats = initStats();
@@ -151,12 +175,15 @@ window.onload = function () {
             // 纵横比
             var aspect = width / height;
             camera = new THREE.PerspectiveCamera(fav, aspect, 0.1, 2500);
-            camera.position.set(666, 400, 999);
+            camera.position.set(333, 200, 666);
             camera.lookAt(new THREE.Vector3(0, 200, 0));
 
             // 坐标轴
             var axis = setAxis();
             scene.add(axis);
+            // 灯光
+            var lg = createLight();
+            scene.add(lg);
             // 地面
             var plane = createPlane();
             scene.add(plane);
@@ -164,7 +191,7 @@ window.onload = function () {
             snowPoints = createSnow2();
             scene.add(snowPoints);
             // 祝福语
-            var wish = createWish();
+            var wish = createWish(font);
             scene.add(wish);
             // 拖拽交互
             // controls = new THREE.OrbitControls(camera);
