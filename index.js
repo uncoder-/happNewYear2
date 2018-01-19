@@ -2,7 +2,7 @@
  * @Author: uncoder 
  * @Date: 2018-01-17 15:38:47 
  * @Last Modified by: uncoder
- * @Last Modified time: 2018-01-19 14:40:56
+ * @Last Modified time: 2018-01-19 15:11:49
  */
 // 获取浏览器窗口的宽高，后续会用
 var width = window.innerWidth;
@@ -46,8 +46,8 @@ function createPlane() {
     // 以自身中心为旋转轴，绕 x 轴顺时针旋转 45 度
     plane.rotation.x = -0.5 * Math.PI;
     plane.rotation.z = -0.75 * Math.PI;
-    plane.scale.set(30, 30, 30);
-    plane.position.set(50, 0, 280);
+    plane.scale.set(26, 30, 26);
+    plane.position.set(0, 0, 310);
     return plane;
 }
 // 雪花
@@ -95,7 +95,7 @@ function createSnow2() {
         // 雪花
         var sprite = new THREE.Sprite(spriteMaterial);
         var x = Math.random() * 2000 - 1000;
-        var y = Math.random() * height + 500;
+        var y = Math.random() * 2000 - 1000;
         var z = Math.random() * 2000 - 1000;
         // 初始位置坐标
         sprite.position.set(x, y, z);
