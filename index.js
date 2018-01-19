@@ -2,7 +2,7 @@
  * @Author: uncoder 
  * @Date: 2018-01-17 15:38:47 
  * @Last Modified by: uncoder
- * @Last Modified time: 2018-01-18 21:57:15
+ * @Last Modified time: 2018-01-19 14:15:20
  */
 // 获取浏览器窗口的宽高，后续会用
 var width = window.innerWidth;
@@ -102,24 +102,9 @@ function createSnow2() {
     return group;
 }
 // 单身狗
-function createDog() {
+function createWish() {
     var group = new THREE.Group();
-    // 头
-    var geometry = new THREE.SphereGeometry(50, 32, 32);
-    var material = new THREE.MeshBasicMaterial({ color: 0xffff00 });
-    var head = new THREE.Mesh(geometry, material);
-    head.position.set(0, 100, 0)
-    group.add(head);
-    // 身子
-    var geometry = new THREE.BoxGeometry(100, 200, 100);
-    var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-    var body = new THREE.Mesh(geometry, material);
-    body.position.set(0, 0, 0)
-    group.add(body);
-    // 左手
-    // 右手
-    // 左腿
-    // 右腿
+    
     return group;
 }
 
@@ -165,9 +150,9 @@ window.onload = function () {
             // 雪花
             snowPoints = createSnow2();
             scene.add(snowPoints);
-            // 小个子
-            var dog = createDog();
-            scene.add(dog);
+            // 祝福语
+            var wish = createWish();
+            scene.add(wish);
             // 拖拽交互
             // controls = new THREE.OrbitControls(camera);
             // controls.target.set(0, 0, 0);
