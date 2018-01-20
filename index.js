@@ -2,7 +2,7 @@
  * @Author: uncoder 
  * @Date: 2018-01-17 15:38:47 
  * @Last Modified by: uncoder
- * @Last Modified time: 2018-01-19 15:50:17
+ * @Last Modified time: 2018-01-20 12:22:25
  */
 // 获取浏览器窗口的宽高，后续会用
 var width = window.innerWidth;
@@ -142,6 +142,32 @@ function createLight() {
     group.add(pointLight);
     return group;
 }
+// firework
+function firework(x, y, z) {
+    var group = new THREE.Group();
+    // 火箭帽🚀
+    var geometry = new THREE.ConeGeometry(7, 5, 32);
+    var material = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+    var head = new THREE.Mesh(geometry, material);
+    head.position.set(x, 10 + y, z);
+    group.add(head);
+    // 火箭体
+    var geometry = new THREE.CylinderGeometry(5, 1, 8, 32);
+    var material = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+    var body = new THREE.Mesh(geometry, material);
+    body.position.set(x, 4 + y, z);
+    group.add(body);
+    // 火箭尾巴
+    return group;
+}
+function createFireworks() {
+    var group = new THREE.Group();
+    var one = firework(0, 0, 0);
+    var two = firework(20, 20, 20);
+    group.add(one);
+    group.add(two);
+    return group;
+}
 window.onload = function () {
     // 初始化 stats
     var stats = initStats();
@@ -177,7 +203,7 @@ window.onload = function () {
             camera = new THREE.PerspectiveCamera(fav, aspect, 0.1, 2500);
             camera.position.set(333, 200, 666);
             camera.lookAt(new THREE.Vector3(0, 200, 0));
-
+            
             // 坐标轴
             var axis = setAxis();
             scene.add(axis);
@@ -193,8 +219,11 @@ window.onload = function () {
             // 祝福语
             var wish = createWish(font);
             scene.add(wish);
+            // 小火煎
+            var fireOne = createFireworks();
+            scene.add(fireOne);
             // 拖拽交互
-            // controls = new THREE.OrbitControls(camera);
+            // controls = new THREE.OrbitControls(camera, renderer.domElement);
             // controls.target.set(0, 0, 0);
             // controls.autoRotate = true;
             // controls.autoRotateSpeed = 0.5;
