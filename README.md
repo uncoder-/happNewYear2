@@ -20,3 +20,10 @@
   2. 位置position
   3. 放置up，以那个方向为上方，平放，侧放。
   4. 看向lookAt
+## 几何体Geometry
+
+## 材料Material
+
+## 纹理Texture
+
+## 网格Mesh
