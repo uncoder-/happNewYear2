@@ -2,7 +2,7 @@
  * @Author: uncoder 
  * @Date: 2018-01-17 15:38:47 
  * @Last Modified by: uncoder
- * @Last Modified time: 2018-01-20 12:22:25
+ * @Last Modified time: 2018-01-20 12:41:38
  */
 // 获取浏览器窗口的宽高，后续会用
 var width = window.innerWidth;
@@ -163,9 +163,10 @@ function firework(x, y, z) {
 function createFireworks() {
     var group = new THREE.Group();
     var one = firework(0, 0, 0);
-    var two = firework(20, 20, 20);
+    one.originPosition = {
+        x: 0, y: 0, z: 0
+    }
     group.add(one);
-    group.add(two);
     return group;
 }
 window.onload = function () {
@@ -176,7 +177,7 @@ window.onload = function () {
     // 因此需要我们对加载的字体进行删减优化
     var loader = new THREE.FontLoader();
     loader.load('fonts/font.json', function (font) {
-        var camera, scene, renderer, snowPoints, controls;
+        var controls, camera, scene, renderer, snowPoints, fireOne;
         var step = 0;
 
         init(font);
@@ -203,7 +204,7 @@ window.onload = function () {
             camera = new THREE.PerspectiveCamera(fav, aspect, 0.1, 2500);
             camera.position.set(333, 200, 666);
             camera.lookAt(new THREE.Vector3(0, 200, 0));
-            
+
             // 坐标轴
             var axis = setAxis();
             scene.add(axis);
@@ -220,7 +221,7 @@ window.onload = function () {
             var wish = createWish(font);
             scene.add(wish);
             // 小火煎
-            var fireOne = createFireworks();
+            fireOne = createFireworks();
             scene.add(fireOne);
             // 拖拽交互
             // controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -232,12 +233,14 @@ window.onload = function () {
         }
         // 动画
         function animate() {
+            step += 1;
             stats.update();
             // controls.update();
             requestAnimationFrame(animate);
             // 雪花
             renderSnow();
-            // snowPoints.rotation.x = time * 0.75;
+            // 烟花
+            renderFirework();
             // 渲染，即摄像机拍下此刻的场景
             renderer.clear();
             renderer.render(scene, camera);
@@ -246,7 +249,6 @@ window.onload = function () {
         function renderSnow() {
             var time = Date.now() * 0.00005;
             // 动画补偿
-            step += 1;
             for (var i = 0, l = snowPoints.children.length; i < l; i++) {
                 var sprite = snowPoints.children[i];
                 var delayCount = sprite.delayCount;
@@ -268,6 +270,19 @@ window.onload = function () {
                 }
                 var scale = Math.sin(step) * 0.35 + 15;
                 sprite.scale.set(scale, scale, 1.0);
+            }
+        }
+        // 渲染烟火
+        function renderFirework() {
+            console.log(fireOne.children.length)
+            for (var i = 0, l = fireOne.children.length; i < l; i++) {
+                var fire = fireOne.children[i];
+                var originPosition = fire.originPosition;
+                if (fire.position.y < 200) {
+                    fire.position.y += 1;
+                } else {
+                    fire.position.y = originPosition.y;
+                }
             }
         }
     })
