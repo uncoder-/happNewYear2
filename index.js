@@ -2,7 +2,7 @@
  * @Author: uncoder 
  * @Date: 2018-01-17 15:38:47 
  * @Last Modified by: uncoder
- * @Last Modified time: 2018-01-22 15:28:49
+ * @Last Modified time: 2018-01-22 17:25:44
  */
 // 获取浏览器窗口的宽高，后续会用
 var width = window.innerWidth;
@@ -142,7 +142,7 @@ function createLight() {
     group.add(pointLight);
     return group;
 }
-// 小火煎
+// 小火箭
 function rocket(x, y, z) {
     var group = new THREE.Group();
     // 火箭帽🚀
@@ -170,8 +170,44 @@ function createRocket() {
     return group;
 }
 // 烟花
-function firework(){
-
+function firework(x, y, z) {
+    var group = new THREE.Group();
+    var geometry = new THREE.SphereGeometry(35, 32, 32);
+    var vl = geometry.vertices.length;
+    for (var i = 0; i < vl; i++) {
+        if (i % 8 == 0) {
+            //为每个点附上材质
+            var material = new THREE.SpriteMaterial({
+                color: 0xFF0000
+            });
+            var particle = new THREE.Sprite(material);
+            particle.position.x = 0;
+            particle.position.y = 0;
+            particle.position.z = 0;
+            var size = Math.random() * 5 + 1;
+            particle.scale.set(size, size);
+            var timerandom = 1 * Math.random();
+            //为每个点加动画
+            TweenLite.to(
+                particle.position,
+                timerandom,
+                {
+                    x: geometry.vertices[i].x + (0.5 - Math.random()) * 88,
+                    y: geometry.vertices[i].y + 555,
+                    z: geometry.vertices[i].z + Math.random() * 88,
+                    delay: 1
+                }
+            );
+            group.add(particle);
+        }
+    }
+    return group;
+}
+function createFirework() {
+    var group = new THREE.Group();
+    var one = firework(0, 0, 0);
+    group.add(one);
+    return group;
 }
 window.onload = function () {
     // 初始化 stats
@@ -181,7 +217,7 @@ window.onload = function () {
     // 因此需要我们对加载的字体进行删减优化
     var loader = new THREE.FontLoader();
     loader.load('fonts/font.json', function (font) {
-        var controls, camera, scene, renderer, snowPoints, firework;
+        var controls, camera, scene, renderer, snowPoints, firework, rocket;
         var step = 0;
 
         init(font);
@@ -225,10 +261,13 @@ window.onload = function () {
             var wish = createWish(font);
             scene.add(wish);
             // 小火煎
-            firework = createRocket();
-            scene.add(firework);
+            rocket = createRocket();
+            scene.add(rocket);
             // 小火煎动画
-            renderFirework();
+            renderRocket();
+            // 烟花
+            firework = createFirework();
+            scene.add(firework);
             // 拖拽交互
             // controls = new THREE.OrbitControls(camera, renderer.domElement);
             // controls.target.set(0, 0, 0);
@@ -277,10 +316,10 @@ window.onload = function () {
             }
         }
         // 火箭上升动画
-        function renderFirework() {
-            for (var i = 0, l = firework.children.length; i < l; i++) {
-                var fire = firework.children[i];
-                TweenLite.to(fire.position, 3.5, {
+        function renderRocket() {
+            for (var i = 0, l = rocket.children.length; i < l; i++) {
+                var rocekt = rocket.children[i];
+                TweenLite.to(rocekt.position, 3.5, {
                     y: 666,
                     delay: 1,
                     defaultEase: Power2.easeInOut
