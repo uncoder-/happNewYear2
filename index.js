@@ -2,7 +2,7 @@
  * @Author: uncoder 
  * @Date: 2018-01-17 15:38:47 
  * @Last Modified by: uncoder
- * @Last Modified time: 2018-01-22 17:40:11
+ * @Last Modified time: 2018-01-22 20:08:57
  */
 // 获取浏览器窗口的宽高，后续会用
 var width = window.innerWidth;
@@ -192,9 +192,9 @@ function firework(x, y, z, delay) {
                 particle.position,
                 timerandom,
                 {
-                    x: geometry.vertices[i].x + (0.5 - Math.random()) * 88,
-                    y: geometry.vertices[i].y + 555,
-                    z: geometry.vertices[i].z + Math.random() * 88,
+                    x: geometry.vertices[i].x + (0.5 - Math.random()) * 100 + x,
+                    y: geometry.vertices[i].y + y,
+                    z: geometry.vertices[i].z + (0.5 - Math.random()) * 100 + z,
                     delay: delay
                 }
             );
@@ -205,7 +205,7 @@ function firework(x, y, z, delay) {
 }
 function createFirework() {
     var group = new THREE.Group();
-    var one = firework(100, 100, 100, 1);
+    var one = firework(200, 555, 0, 1);
     group.add(one);
     return group;
 }
