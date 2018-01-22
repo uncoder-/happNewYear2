@@ -2,7 +2,7 @@
  * @Author: uncoder 
  * @Date: 2018-01-17 15:38:47 
  * @Last Modified by: uncoder
- * @Last Modified time: 2018-01-20 12:41:38
+ * @Last Modified time: 2018-01-22 14:09:35
  */
 // 获取浏览器窗口的宽高，后续会用
 var width = window.innerWidth;
@@ -274,15 +274,13 @@ window.onload = function () {
         }
         // 渲染烟火
         function renderFirework() {
-            console.log(fireOne.children.length)
             for (var i = 0, l = fireOne.children.length; i < l; i++) {
                 var fire = fireOne.children[i];
-                var originPosition = fire.originPosition;
-                if (fire.position.y < 200) {
-                    fire.position.y += 1;
-                } else {
-                    fire.position.y = originPosition.y;
-                }
+                TweenLite.to(fire.position, 5, {
+                    y: 666,
+                    delay: 1,
+                    defaultEase: Power2.easeInOut
+                })
             }
         }
     })
