@@ -2,7 +2,7 @@
  * @Author: uncoder 
  * @Date: 2018-01-17 15:38:47 
  * @Last Modified by: uncoder
- * @Last Modified time: 2018-01-22 20:10:10
+ * @Last Modified time: 2018-01-22 20:58:04
  */
 // 获取浏览器窗口的宽高，后续会用
 var width = window.innerWidth;
@@ -112,6 +112,42 @@ function createSnow2() {
     return group;
 }
 // 祝福语
+function wish(font, x, y, z, delay) {
+    var group = new THREE.Group();
+    var textGeo = new THREE.TextGeometry('小傻师哥', {
+        font: font,
+        size: 45,
+        height: 6
+    });
+    var vl = textGeo.vertices.length;
+    for (var i = 0; i < vl; i++) {
+        if (i % 2 == 0) {
+            //为每个点附上材质
+            var material = new THREE.SpriteMaterial({
+                color: 0xFF0000
+            });
+            var particle = new THREE.Sprite(material);
+            particle.position.x = 80;
+            particle.position.y = 80;
+            particle.position.z = z;
+            particle.scale.set(2, 2);
+            //为每个点加动画
+            var timerandom = 1 * Math.random();
+            TweenLite.to(
+                particle.position,
+                timerandom,
+                {
+                    x: textGeo.vertices[i].x,
+                    y: textGeo.vertices[i].y,
+                    z: textGeo.vertices[i].z,
+                    delay: delay
+                }
+            );
+            group.add(particle);
+        }
+    }
+    return group;
+}
 function createWish(font) {
     var group = new THREE.Group();
     var textGeo = new THREE.TextGeometry('小傻师哥', {
@@ -128,6 +164,13 @@ function createWish(font) {
     textMesh1.rotation.y = 0.1 * Math.PI;
     textMesh1.position.x = -250;
     group.add(textMesh1);
+    return group;
+}
+function createWish2(font) {
+    var group = new THREE.Group();
+    var one = wish(font, -width/2, 600, 0, 1);
+    one.position.set(-width/2, 600, 0);
+    group.add(one);
     return group;
 }
 // 灯光
@@ -258,7 +301,7 @@ window.onload = function () {
             snowPoints = createSnow2();
             scene.add(snowPoints);
             // 祝福语
-            var wish = createWish(font);
+            var wish = createWish2(font);
             scene.add(wish);
             // 小火煎
             rocket = createRocket();
