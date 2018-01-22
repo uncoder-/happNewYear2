@@ -2,7 +2,7 @@
  * @Author: uncoder 
  * @Date: 2018-01-17 15:38:47 
  * @Last Modified by: uncoder
- * @Last Modified time: 2018-01-22 21:43:31
+ * @Last Modified time: 2018-01-22 22:09:53
  */
 // 获取浏览器窗口的宽高，后续会用
 var width = window.innerWidth;
@@ -44,10 +44,10 @@ function createPlane() {
     });
     var plane = new THREE.Mesh(geometry, material);
     // 以自身中心为旋转轴，绕 x 轴顺时针旋转 45 度
-    plane.rotation.x = -0.5 * Math.PI;
+    plane.rotation.x = 1.5 * Math.PI;
     plane.rotation.z = -0.75 * Math.PI;
-    plane.scale.set(15, 16, 15);
-    // plane.position.set(-50, 0, 210);
+    plane.scale.set(50, 30, 30);
+    plane.position.set(70, 0, -35);
     return plane;
 }
 // 雪花
@@ -127,7 +127,7 @@ function wish(font, text, x, y, z, delay) {
     for (var i = 0; i < vl; i++) {
         if (i % 4 == 0) {
             var particle = new THREE.Sprite(material);
-            particle.position.x = 80;
+            particle.position.x = width / 2 + 80;
             particle.position.y = 80;
             particle.position.z = z;
             particle.scale.set(2, 2);
@@ -173,7 +173,7 @@ function createWish2(font) {
     // var two = wish(font, '祝大家:', -width / 2, 600, 0, 1);
     // var three = wish(font, '身体健康', -width / 2, 600, 0, 1);
     // var four = wish(font, '万事如意', -width / 2, 600, 0, 1);
-    one.position.set(-width / 2 - 100, 600, 0);
+    one.position.set(-width / 2 - 210, 555, 0);
     one.rotation.set(0, 0.25 * Math.PI, 0);
     // two.position.set(-width / 2, 500, 0);
     // three.position.set(-width / 2, 400, 0);
