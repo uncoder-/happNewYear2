@@ -2,7 +2,7 @@
  * @Author: uncoder 
  * @Date: 2018-01-17 15:38:47 
  * @Last Modified by: uncoder
- * @Last Modified time: 2018-01-22 14:09:35
+ * @Last Modified time: 2018-01-22 14:10:17
  */
 // 获取浏览器窗口的宽高，后续会用
 var width = window.innerWidth;
@@ -223,6 +223,8 @@ window.onload = function () {
             // 小火煎
             fireOne = createFireworks();
             scene.add(fireOne);
+            // 小火煎动画
+            renderFirework();
             // 拖拽交互
             // controls = new THREE.OrbitControls(camera, renderer.domElement);
             // controls.target.set(0, 0, 0);
@@ -239,8 +241,6 @@ window.onload = function () {
             requestAnimationFrame(animate);
             // 雪花
             renderSnow();
-            // 烟花
-            renderFirework();
             // 渲染，即摄像机拍下此刻的场景
             renderer.clear();
             renderer.render(scene, camera);
