@@ -2,7 +2,7 @@
  * @Author: uncoder 
  * @Date: 2018-01-17 15:38:47 
  * @Last Modified by: uncoder
- * @Last Modified time: 2018-01-22 14:10:17
+ * @Last Modified time: 2018-01-22 15:28:49
  */
 // 获取浏览器窗口的宽高，后续会用
 var width = window.innerWidth;
@@ -142,8 +142,8 @@ function createLight() {
     group.add(pointLight);
     return group;
 }
-// firework
-function firework(x, y, z) {
+// 小火煎
+function rocket(x, y, z) {
     var group = new THREE.Group();
     // 火箭帽🚀
     var geometry = new THREE.ConeGeometry(7, 5, 32);
@@ -160,14 +160,18 @@ function firework(x, y, z) {
     // 火箭尾巴
     return group;
 }
-function createFireworks() {
+function createRocket() {
     var group = new THREE.Group();
-    var one = firework(0, 0, 0);
+    var one = rocket(0, 0, 0);
     one.originPosition = {
         x: 0, y: 0, z: 0
     }
     group.add(one);
     return group;
+}
+// 烟花
+function firework(){
+
 }
 window.onload = function () {
     // 初始化 stats
@@ -177,7 +181,7 @@ window.onload = function () {
     // 因此需要我们对加载的字体进行删减优化
     var loader = new THREE.FontLoader();
     loader.load('fonts/font.json', function (font) {
-        var controls, camera, scene, renderer, snowPoints, fireOne;
+        var controls, camera, scene, renderer, snowPoints, firework;
         var step = 0;
 
         init(font);
@@ -221,8 +225,8 @@ window.onload = function () {
             var wish = createWish(font);
             scene.add(wish);
             // 小火煎
-            fireOne = createFireworks();
-            scene.add(fireOne);
+            firework = createRocket();
+            scene.add(firework);
             // 小火煎动画
             renderFirework();
             // 拖拽交互
@@ -245,7 +249,7 @@ window.onload = function () {
             renderer.clear();
             renderer.render(scene, camera);
         }
-        // 渲染雪花
+        // 雪花动画
         function renderSnow() {
             var time = Date.now() * 0.00005;
             // 动画补偿
@@ -272,11 +276,11 @@ window.onload = function () {
                 sprite.scale.set(scale, scale, 1.0);
             }
         }
-        // 渲染烟火
+        // 火箭上升动画
         function renderFirework() {
-            for (var i = 0, l = fireOne.children.length; i < l; i++) {
-                var fire = fireOne.children[i];
-                TweenLite.to(fire.position, 5, {
+            for (var i = 0, l = firework.children.length; i < l; i++) {
+                var fire = firework.children[i];
+                TweenLite.to(fire.position, 3.5, {
                     y: 666,
                     delay: 1,
                     defaultEase: Power2.easeInOut
