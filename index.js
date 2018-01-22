@@ -2,7 +2,7 @@
  * @Author: uncoder 
  * @Date: 2018-01-17 15:38:47 
  * @Last Modified by: uncoder
- * @Last Modified time: 2018-01-22 20:58:04
+ * @Last Modified time: 2018-01-22 21:00:36
  */
 // 获取浏览器窗口的宽高，后续会用
 var width = window.innerWidth;
@@ -121,7 +121,7 @@ function wish(font, x, y, z, delay) {
     });
     var vl = textGeo.vertices.length;
     for (var i = 0; i < vl; i++) {
-        if (i % 2 == 0) {
+        if (i % 3 == 0) {
             //为每个点附上材质
             var material = new THREE.SpriteMaterial({
                 color: 0xFF0000
@@ -309,8 +309,8 @@ window.onload = function () {
             // 小火煎动画
             renderRocket();
             // 烟花
-            firework = createFirework();
-            scene.add(firework);
+            // firework = createFirework();
+            // scene.add(firework);
             // 拖拽交互
             // controls = new THREE.OrbitControls(camera, renderer.domElement);
             // controls.target.set(0, 0, 0);
