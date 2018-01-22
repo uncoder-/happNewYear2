@@ -2,7 +2,7 @@
  * @Author: uncoder 
  * @Date: 2018-01-17 15:38:47 
  * @Last Modified by: uncoder
- * @Last Modified time: 2018-01-22 17:25:44
+ * @Last Modified time: 2018-01-22 17:40:11
  */
 // 获取浏览器窗口的宽高，后续会用
 var width = window.innerWidth;
@@ -170,7 +170,7 @@ function createRocket() {
     return group;
 }
 // 烟花
-function firework(x, y, z) {
+function firework(x, y, z, delay) {
     var group = new THREE.Group();
     var geometry = new THREE.SphereGeometry(35, 32, 32);
     var vl = geometry.vertices.length;
@@ -181,9 +181,9 @@ function firework(x, y, z) {
                 color: 0xFF0000
             });
             var particle = new THREE.Sprite(material);
-            particle.position.x = 0;
-            particle.position.y = 0;
-            particle.position.z = 0;
+            particle.position.x = x;
+            particle.position.y = y;
+            particle.position.z = z;
             var size = Math.random() * 5 + 1;
             particle.scale.set(size, size);
             var timerandom = 1 * Math.random();
@@ -195,7 +195,7 @@ function firework(x, y, z) {
                     x: geometry.vertices[i].x + (0.5 - Math.random()) * 88,
                     y: geometry.vertices[i].y + 555,
                     z: geometry.vertices[i].z + Math.random() * 88,
-                    delay: 1
+                    delay: delay
                 }
             );
             group.add(particle);
@@ -205,7 +205,7 @@ function firework(x, y, z) {
 }
 function createFirework() {
     var group = new THREE.Group();
-    var one = firework(0, 0, 0);
+    var one = firework(100, 100, 100, 1);
     group.add(one);
     return group;
 }
