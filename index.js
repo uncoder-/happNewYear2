@@ -2,7 +2,7 @@
  * @Author: uncoder 
  * @Date: 2018-01-17 15:38:47 
  * @Last Modified by: uncoder
- * @Last Modified time: 2018-01-22 21:00:36
+ * @Last Modified time: 2018-01-22 21:43:31
  */
 // 获取浏览器窗口的宽高，后续会用
 var width = window.innerWidth;
@@ -47,7 +47,7 @@ function createPlane() {
     plane.rotation.x = -0.5 * Math.PI;
     plane.rotation.z = -0.75 * Math.PI;
     plane.scale.set(15, 16, 15);
-    plane.position.set(-50, 0, 210);
+    // plane.position.set(-50, 0, 210);
     return plane;
 }
 // 雪花
@@ -89,7 +89,7 @@ function createSnow2() {
     var mapA = textureLoader.load("textures/snow-1.png");
     var mapB = textureLoader.load("textures/snow-2.png");
     parameters.push()
-    for (i = 0; i < 1000; i++) {
+    for (i = 0; i < 555; i++) {
         // 材质
         var spriteMaterial = new THREE.SpriteMaterial({ map: Math.floor(Math.random() * 10) > 5 ? mapA : mapB, color: 0xffffff });
         // 雪花
@@ -112,20 +112,20 @@ function createSnow2() {
     return group;
 }
 // 祝福语
-function wish(font, x, y, z, delay) {
+function wish(font, text, x, y, z, delay) {
     var group = new THREE.Group();
-    var textGeo = new THREE.TextGeometry('小傻师哥', {
+    var textGeo = new THREE.TextGeometry(text, {
         font: font,
-        size: 45,
-        height: 6
+        size: 100,
+        height: 4
+    });
+    //为每个点附上材质
+    var material = new THREE.SpriteMaterial({
+        color: 0xFF0000
     });
     var vl = textGeo.vertices.length;
     for (var i = 0; i < vl; i++) {
-        if (i % 3 == 0) {
-            //为每个点附上材质
-            var material = new THREE.SpriteMaterial({
-                color: 0xFF0000
-            });
+        if (i % 4 == 0) {
             var particle = new THREE.Sprite(material);
             particle.position.x = 80;
             particle.position.y = 80;
@@ -140,12 +140,13 @@ function wish(font, x, y, z, delay) {
                     x: textGeo.vertices[i].x,
                     y: textGeo.vertices[i].y,
                     z: textGeo.vertices[i].z,
-                    delay: delay
+                    delay: 2
                 }
             );
             group.add(particle);
         }
     }
+    console.log(group.children.length)
     return group;
 }
 function createWish(font) {
@@ -168,9 +169,19 @@ function createWish(font) {
 }
 function createWish2(font) {
     var group = new THREE.Group();
-    var one = wish(font, -width/2, 600, 0, 1);
-    one.position.set(-width/2, 600, 0);
+    var one = wish(font, '小傻师哥', -width / 2, 600, 0, 1);
+    // var two = wish(font, '祝大家:', -width / 2, 600, 0, 1);
+    // var three = wish(font, '身体健康', -width / 2, 600, 0, 1);
+    // var four = wish(font, '万事如意', -width / 2, 600, 0, 1);
+    one.position.set(-width / 2 - 100, 600, 0);
+    one.rotation.set(0, 0.25 * Math.PI, 0);
+    // two.position.set(-width / 2, 500, 0);
+    // three.position.set(-width / 2, 400, 0);
+    // four.position.set(-width / 2, 300, 0);
     group.add(one);
+    // group.add(two);
+    // group.add(three);
+    // group.add(four);
     return group;
 }
 // 灯光
@@ -284,9 +295,9 @@ window.onload = function () {
             var fav = 75;
             // 纵横比
             var aspect = width / height;
-            camera = new THREE.PerspectiveCamera(fav, aspect, 0.1, 2500);
-            camera.position.set(333, 200, 666);
-            camera.lookAt(new THREE.Vector3(0, 200, 0));
+            camera = new THREE.PerspectiveCamera(fav, aspect, 0.1, 1500);
+            camera.position.set(666, 666, 666);
+            camera.lookAt(new THREE.Vector3(0, 333, 0));
 
             // 坐标轴
             var axis = setAxis();
