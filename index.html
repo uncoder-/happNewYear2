@@ -10,6 +10,7 @@
         * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
         html,
@@ -18,18 +19,15 @@
             width: 100%;
             overflow: hidden
         }
+
+        canvas {
+            max-width: 500px;
+        }
     </style>
 </head>
 
 <body>
     <div id="Stats-output"></div>
-    <script src="./lib/TweenLite.min.js"></script>
-    <!-- <script src="https://unpkg.com/three"></script> -->
-    <!-- <script src="https://unpkg.com/stats.js"></script>¸ -->
-    <script src="./lib/stats.min.js"></script>
-    <script src="./lib/three.min.js"></script>
-    <!-- <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script> -->
-    <script src="./lib/OrbitControls.js"></script>
     <script src="./index.js"></script>
 </body>
 

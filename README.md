@@ -20,6 +20,10 @@
   2. 位置position
   3. 放置up，以那个方向为上方，平放，侧放。
   4. 看向lookAt
+## 字体
+
+转换字体为[json](https://gero3.github.io/facetype.js/)
+
 ## 几何体Geometry
 
 ## 材料Material
