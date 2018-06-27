@@ -1,6 +1,12 @@
 # 介绍
 
 这个是3d的，2d在[这里](https://github.com/uncoder-/happyNewYear)
+# 运行
+
+```shell
+yarn
+yarn start
+```
 
 ## threejs学习
 
