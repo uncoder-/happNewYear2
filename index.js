@@ -2,7 +2,7 @@
  * @Author: uncoder 
  * @Date: 2018-01-17 15:38:47 
  * @Last Modified by: uncoder-fe
- * @Last Modified time: 2018-06-27 15:10:12
+ * @Last Modified time: 2018-06-27 15:17:40
  */
 
 import * as THREE from 'three';
@@ -46,74 +46,57 @@ window.onload = function () {
     var controls, camera, scene, renderer, snowPoints, firework, rocket;
     var step = 0;
 
-    init(font);
-    animate();
-    // 初始化
-    function init(font) {
-        // 创建一个渲染器
-        renderer = new THREE.WebGLRenderer();
-        // 设置渲染器的清除颜色（即背景色）,尺寸,清晰度
-        // renderer.setClearColor(0xffffff);
-        renderer.setPixelRatio(window.devicePixelRatio);
-        renderer.setSize(width, height);
-        // 将渲染器的输出（此处是canvas元素）插入到 body
-        document.body.appendChild(renderer.domElement);
+    // 创建一个渲染器
+    renderer = new THREE.WebGLRenderer();
+    // 设置渲染器的清除颜色（即背景色）,尺寸,清晰度
+    // renderer.setClearColor(0xffffff);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(width, height);
+    // 将渲染器的输出（此处是canvas元素）插入到 body
+    document.body.appendChild(renderer.domElement);
 
-        // 创建一个场景
-        scene = new THREE.Scene();
+    // 创建一个场景
+    scene = new THREE.Scene();
 
-        // 创建一个具有透视效果的摄像机
-        // 垂直视角，度数
-        var fav = 75;
-        // 纵横比
-        var aspect = width / height;
-        camera = new THREE.PerspectiveCamera(fav, aspect, 0.1, 1500);
-        camera.position.set(666, 666, 666);
-        camera.lookAt(new THREE.Vector3(0, 333, 0));
+    // 创建一个具有透视效果的摄像机
+    // 垂直视角，度数
+    var fav = 75;
+    // 纵横比
+    var aspect = width / height;
+    camera = new THREE.PerspectiveCamera(fav, aspect, 0.1, 1500);
+    camera.position.set(666, 666, 666);
+    camera.lookAt(new THREE.Vector3(0, 333, 0));
 
-        // 坐标轴
-        var axis = setAxis();
-        scene.add(axis);
-        // 灯光
-        var lg = createLight();
-        scene.add(lg);
-        // 地面
-        var plane = createPlane();
-        scene.add(plane);
-        // 雪花
-        snowPoints = createSnow2();
-        scene.add(snowPoints);
-        // 祝福语
-        var wish = createWish2(font);
-        scene.add(wish);
-        // 小火煎
-        rocket = createRocket();
-        scene.add(rocket);
-        // 小火煎动画
-        renderRocket();
-        // 烟花
-        // firework = createFirework();
-        // scene.add(firework);
-        // 拖拽交互
-        // controls = new THREE.OrbitControls(camera, renderer.domElement);
-        // controls.target.set(0, 0, 0);
-        // controls.autoRotate = true;
-        // controls.autoRotateSpeed = 0.5;
-        // controls.maxPolarAngle = 90 * Math.PI / 180;
-        // controls.minPolarAngle = 45 * Math.PI / 180;
-    }
-    // 动画
-    function animate() {
-        step += 1;
-        stats.update();
-        // controls.update();
-        requestAnimationFrame(animate);
-        // 雪花
-        renderSnow();
-        // 渲染，即摄像机拍下此刻的场景
-        renderer.clear();
-        renderer.render(scene, camera);
-    }
+    // 坐标轴
+    var axis = setAxis();
+    scene.add(axis);
+    // 灯光
+    var lg = createLight();
+    scene.add(lg);
+    // 地面
+    var plane = createPlane();
+    scene.add(plane);
+    // 雪花
+    snowPoints = createSnow2();
+    scene.add(snowPoints);
+    // 祝福语
+    var wish = createWish2(font);
+    scene.add(wish);
+    // 小火煎
+    rocket = createRocket();
+    scene.add(rocket);
+    // 小火煎动画
+    renderRocket();
+    // 烟花
+    // firework = createFirework();
+    // scene.add(firework);
+    // 拖拽交互
+    // controls = new THREE.OrbitControls(camera, renderer.domElement);
+    // controls.target.set(0, 0, 0);
+    // controls.autoRotate = true;
+    // controls.autoRotateSpeed = 0.5;
+    // controls.maxPolarAngle = 90 * Math.PI / 180;
+    // controls.minPolarAngle = 45 * Math.PI / 180;
     // 雪花动画
     function renderSnow() {
         var time = Date.now() * 0.00005;
@@ -152,4 +135,17 @@ window.onload = function () {
             })
         }
     }
+    // 动画
+    function animate() {
+        step += 1;
+        stats.update();
+        // controls.update();
+        requestAnimationFrame(animate);
+        // 雪花
+        renderSnow();
+        // 渲染，即摄像机拍下此刻的场景
+        renderer.clear();
+        renderer.render(scene, camera);
+    }
+    animate();
 }
