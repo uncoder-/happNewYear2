@@ -19,8 +19,8 @@ function rocket(x, y, z) {
     return group;
 }
 export function createRocket() {
-    var group = new THREE.Group();
-    var one = rocket(0, 0, 0);
+    const group = new THREE.Group();
+    const one = rocket(0, 0, 0);
     one.originPosition = {
         x: 0, y: 0, z: 0
     }

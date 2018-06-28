@@ -2,7 +2,7 @@
  * @Author: uncoder 
  * @Date: 2018-01-17 15:38:47 
  * @Last Modified by: uncoder-fe
- * @Last Modified time: 2018-06-28 11:44:44
+ * @Last Modified time: 2018-06-28 11:51:47
  */
 
 import * as THREE from 'three';
@@ -129,9 +129,9 @@ window.onload = function () {
         for (var i = 0, l = rocket.children.length; i < l; i++) {
             var r = rocket.children[i];
             // console.log(r)
-            TweenLite.to(r.position, 3.5, {
+            TweenLite.to(r.position, 2.5, {
                 y: 666,
-                delay: 1,
+                delay: 1 * i,
                 defaultEase: Power2.easeInOut,
                 onComplete: () => {
                     scene.remove(rocket);
