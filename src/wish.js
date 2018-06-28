@@ -30,13 +30,13 @@ export function wish(font, text, x, y, z, delay) {
                     x: textGeo.vertices[i].x,
                     y: textGeo.vertices[i].y,
                     z: textGeo.vertices[i].z,
-                    delay: 4.5
+                    delay: 2.5
                 }
             );
             group.add(particle);
         }
     }
-    console.log(group.children.length)
+    // console.log(group.children.length)
     return group;
 }
 export function createWish(font) {

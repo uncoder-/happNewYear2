@@ -2,7 +2,7 @@
  * @Author: uncoder 
  * @Date: 2018-01-17 15:38:47 
  * @Last Modified by: uncoder-fe
- * @Last Modified time: 2018-06-28 15:03:27
+ * @Last Modified time: 2018-06-28 16:09:23
  */
 
 import * as THREE from 'three';
@@ -81,12 +81,22 @@ window.onload = function () {
     scene.add(snowPoints);
     // 祝福语
     var wish = createWish2(font);
-    scene.add(wish);
     // 小火煎
     rocket = createRocket();
     scene.add(rocket);
     // 小火煎动画
-    renderRocket();
+    for (var i = 0, l = rocket.children.length; i < l; i++) {
+        var r = rocket.children[i];
+        TweenLite.to(r.position, 2.5, {
+            y: 666,
+            delay: 1 * i,
+            defaultEase: Power2.easeInOut,
+            onComplete: () => {
+                scene.remove(rocket);
+                scene.add(wish);
+            }
+        })
+    }
     // 烟花
     // firework = createFirework();
     // scene.add(firework);
@@ -122,20 +132,6 @@ window.onload = function () {
             }
             var scale = Math.sin(step) * 0.35 + 15;
             sprite.scale.set(scale, scale, 1.0);
-        }
-    }
-    // 火箭上升动画
-    function renderRocket() {
-        for (var i = 0, l = rocket.children.length; i < l; i++) {
-            var r = rocket.children[i];
-            TweenLite.to(r.position, 2.5, {
-                y: 666,
-                delay: 1 * i,
-                defaultEase: Power2.easeInOut,
-                onComplete: () => {
-                    scene.remove(rocket);
-                }
-            })
         }
     }
     // 动画
