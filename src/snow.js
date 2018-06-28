@@ -37,11 +37,9 @@ export function createSnow() {
 export function createSnow2() {
     var group = new THREE.Group();
     // 参数
-    var parameters = [];
     var textureLoader = new THREE.TextureLoader();
     var mapA = textureLoader.load(snow1);
     var mapB = textureLoader.load(snow2);
-    parameters.push()
     for (let i = 0; i < 555; i++) {
         // 材质
         var spriteMaterial = new THREE.SpriteMaterial({ map: Math.floor(Math.random() * 10) > 5 ? mapA : mapB, color: 0xffffff });

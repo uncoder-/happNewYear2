@@ -30,7 +30,7 @@ export function wish(font, text, x, y, z, delay) {
                     x: textGeo.vertices[i].x,
                     y: textGeo.vertices[i].y,
                     z: textGeo.vertices[i].z,
-                    delay: 2
+                    delay: 4.5
                 }
             );
             group.add(particle);
