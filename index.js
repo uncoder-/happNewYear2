@@ -2,7 +2,7 @@
  * @Author: uncoder 
  * @Date: 2018-01-17 15:38:47 
  * @Last Modified by: uncoder-fe
- * @Last Modified time: 2018-06-28 11:30:15
+ * @Last Modified time: 2018-06-28 11:44:44
  */
 
 import * as THREE from 'three';
@@ -127,12 +127,15 @@ window.onload = function () {
     // 火箭上升动画
     function renderRocket() {
         for (var i = 0, l = rocket.children.length; i < l; i++) {
-            var rocekt = rocket.children[i];
-            console.log(rocekt)
-            TweenLite.to(rocekt.position, 3.5, {
+            var r = rocket.children[i];
+            // console.log(r)
+            TweenLite.to(r.position, 3.5, {
                 y: 666,
                 delay: 1,
-                defaultEase: Power2.easeInOut
+                defaultEase: Power2.easeInOut,
+                onComplete: () => {
+                    scene.remove(rocket);
+                }
             })
         }
     }
