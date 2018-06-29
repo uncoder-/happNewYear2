@@ -28,7 +28,7 @@ export function createSnow() {
         particles.rotation.x = Math.random() * 6;
         particles.rotation.y = Math.random() * 6;
         particles.rotation.z = Math.random() * 6;
-        console.log("particles", particles)
+        // console.log("particles", particles)
         snow.push(particles)
     }
     return snow;
