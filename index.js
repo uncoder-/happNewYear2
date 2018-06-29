@@ -2,7 +2,7 @@
  * @Author: uncoder 
  * @Date: 2018-01-17 15:38:47 
  * @Last Modified by: uncoder-fe
- * @Last Modified time: 2018-06-28 16:09:23
+ * @Last Modified time: 2018-06-29 15:20:51
  */
 
 import * as THREE from 'three';
@@ -43,7 +43,7 @@ window.onload = function () {
     // 因此需要我们对加载的字体进行删减优化
     var loader = new THREE.FontLoader();
     const font = loader.parse(json);
-    var controls, camera, scene, renderer, snowPoints, firework, rocket;
+    var controls, camera, scene, renderer, snowPoints, firework, rockets;
     var step = 0;
 
     // 创建一个渲染器
@@ -79,23 +79,29 @@ window.onload = function () {
     // 雪花
     snowPoints = createSnow2();
     scene.add(snowPoints);
-    // 祝福语
-    var wish = createWish2(font);
-    // 小火煎
-    rocket = createRocket();
-    scene.add(rocket);
-    // 小火煎动画
-    for (var i = 0, l = rocket.children.length; i < l; i++) {
-        var r = rocket.children[i];
-        TweenLite.to(r.position, 2.5, {
-            y: 666,
-            delay: 1 * i,
-            defaultEase: Power2.easeInOut,
-            onComplete: () => {
-                scene.remove(rocket);
-                scene.add(wish);
-            }
-        })
+    // 火箭队
+    rockets = createRocket();
+    // 火箭队动画
+    // 注意，TweenLite设置动画之后，就会执行，
+    // 所以，我们放入场景的时候在给其设置动画。
+    for (var i = 0, l = rockets.length; i < l; i++) {
+        ((i) => {
+            var rocket = rockets[i];
+            const { x, y, z } = rocket.toPosition;
+            TweenLite.to(rocket.position, 2.5, {
+                x, y, z,
+                delay: i + Math.random(),
+                defaultEase: Power2.easeInOut,
+                onComplete: () => {
+                    scene.remove(rocket);
+                    // 祝福语，这里我们按照索引动态创建
+                    // 性能会慢一点（可能），不过考虑动画的原因，以后优化
+                    var wish = createWish2(font, i);
+                    scene.add(wish);
+                }
+            })
+            scene.add(rocket)
+        })(i)
     }
     // 烟花
     // firework = createFirework();

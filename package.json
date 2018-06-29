@@ -6,7 +6,7 @@
   "author": "uncoder",
   "license": "ISC",
   "scripts": {
-    "start": "parcel index.html -p 1234"
+    "start": "parcel index.html -p 1234 --no-cache"
   },
   "dependencies": {
     "fonts": "^0.0.2",

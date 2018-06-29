@@ -1,7 +1,7 @@
 import * as THREE from 'three';
-
+const initConfig = require('./config');
 // 小火箭
-function rocket(x, y, z) {
+function Rocket(x, y, z) {
     var group = new THREE.Group();
     // 火箭帽🚀
     var geometry = new THREE.ConeGeometry(7, 5, 32);
@@ -19,11 +19,14 @@ function rocket(x, y, z) {
     return group;
 }
 export function createRocket() {
-    const group = new THREE.Group();
-    const one = rocket(0, 0, 0);
-    one.originPosition = {
-        x: 0, y: 0, z: 0
+    const group = [];
+    for (let i = 0; i < initConfig.rocketPosition.length; i++) {
+        const { x, y, z } = initConfig.rocketPosition[i];
+        const rocket = Rocket(0, 0, 0);
+        rocket.toPosition = {
+            x, y, z
+        }
+        group.push(rocket);
     }
-    group.add(one);
     return group;
 }
