@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 const initConfig = require('./config');
+
 // 小火箭
 function Rocket(x, y, z) {
     var group = new THREE.Group();

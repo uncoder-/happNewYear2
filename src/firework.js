@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 
 // 烟花
-function firework(x, y, z, delay) {
+function FireWork(x, y, z, delay) {
     var group = new THREE.Group();
     var geometry = new THREE.SphereGeometry(35, 32, 32);
     var vl = geometry.vertices.length;
@@ -36,7 +36,7 @@ function firework(x, y, z, delay) {
 }
 export function createFirework() {
     var group = new THREE.Group();
-    var one = firework(200, 555, 0, 1);
-    group.add(one);
+    var firework = FireWork(200, 555, 0, 1);
+    group.add(firework);
     return group;
 }

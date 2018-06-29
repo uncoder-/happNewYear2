@@ -3,6 +3,7 @@ import snow1 from './textures/snow-1.png';
 import snow2 from './textures/snow-2 2.png';
 
 const height = window.innerHeight;
+
 // 雪花
 export function createSnow() {
     var snow = [];
