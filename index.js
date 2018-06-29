@@ -2,7 +2,7 @@
  * @Author: uncoder 
  * @Date: 2018-01-17 15:38:47 
  * @Last Modified by: uncoder-fe
- * @Last Modified time: 2018-06-29 15:20:51
+ * @Last Modified time: 2018-06-29 15:28:04
  */
 
 import * as THREE from 'three';
@@ -107,7 +107,7 @@ window.onload = function () {
     // firework = createFirework();
     // scene.add(firework);
     // 拖拽交互
-    // controls = new THREE.OrbitControls(camera, renderer.domElement);
+    // controls = new OrbitControls(camera, renderer.domElement);
     // controls.target.set(0, 0, 0);
     // controls.autoRotate = true;
     // controls.autoRotateSpeed = 0.5;
