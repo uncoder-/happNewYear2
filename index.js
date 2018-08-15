@@ -2,7 +2,7 @@
  * @Author: uncoder 
  * @Date: 2018-01-17 15:38:47 
  * @Last Modified by: uncoder-fe
- * @Last Modified time: 2018-06-29 15:28:04
+ * @Last Modified time: 2018-08-15 16:36:17
  */
 
 import * as THREE from 'three';
@@ -43,11 +43,10 @@ window.onload = function () {
     // 因此需要我们对加载的字体进行删减优化
     var loader = new THREE.FontLoader();
     const font = loader.parse(json);
-    var controls, camera, scene, renderer, snowPoints, firework, rockets;
     var step = 0;
 
     // 创建一个渲染器
-    renderer = new THREE.WebGLRenderer();
+    var renderer = new THREE.WebGLRenderer();
     // 设置渲染器的清除颜色（即背景色）,尺寸,清晰度
     // renderer.setClearColor(0xffffff);
     renderer.setPixelRatio(window.devicePixelRatio);
@@ -55,35 +54,29 @@ window.onload = function () {
     // 将渲染器的输出（此处是canvas元素）插入到 body
     document.body.appendChild(renderer.domElement);
 
-    // 创建一个场景
-    scene = new THREE.Scene();
 
+    // 创建一个场景
+    var scene = new THREE.Scene();
     // 创建一个具有透视效果的摄像机
     // 垂直视角，度数
     var fav = 75;
     // 纵横比
     var aspect = width / height;
-    camera = new THREE.PerspectiveCamera(fav, aspect, 0.1, 1500);
+    var camera = new THREE.PerspectiveCamera(fav, aspect, 0.1, 1500);
     camera.position.set(666, 666, 666);
     camera.lookAt(new THREE.Vector3(0, 333, 0));
 
     // 坐标轴
     var axis = setAxis();
-    scene.add(axis);
     // 灯光
     var lg = createLight();
-    scene.add(lg);
     // 地面
     var plane = createPlane();
-    scene.add(plane);
     // 雪花
-    snowPoints = createSnow2();
-    scene.add(snowPoints);
+    var snowPoints = createSnow2();
     // 火箭队
-    rockets = createRocket();
+    var rockets = createRocket();
     // 火箭队动画
-    // 注意，TweenLite设置动画之后，就会执行，
-    // 所以，我们放入场景的时候在给其设置动画。
     for (var i = 0, l = rockets.length; i < l; i++) {
         ((i) => {
             var rocket = rockets[i];
@@ -94,25 +87,24 @@ window.onload = function () {
                 defaultEase: Power2.easeInOut,
                 onComplete: () => {
                     scene.remove(rocket);
+                    // 注意，TweenLite设置动画之后，就会立即执行，
+                    // 所以，我们放入场景的时候在给其设置动画。
                     // 祝福语，这里我们按照索引动态创建
-                    // 性能会慢一点（可能），不过考虑动画的原因，以后优化
+                    // 性能会慢一点（可能），不过考虑动画的原因（预生成粒子散开动画消失）
                     var wish = createWish2(font, i);
                     scene.add(wish);
                 }
             })
-            scene.add(rocket)
+            scene.add(rocket);
         })(i)
     }
     // 烟花
-    // firework = createFirework();
+    // var firework = createFirework();
+    scene.add(axis);
+    scene.add(lg);
+    scene.add(plane);
+    scene.add(snowPoints);
     // scene.add(firework);
-    // 拖拽交互
-    // controls = new OrbitControls(camera, renderer.domElement);
-    // controls.target.set(0, 0, 0);
-    // controls.autoRotate = true;
-    // controls.autoRotateSpeed = 0.5;
-    // controls.maxPolarAngle = 90 * Math.PI / 180;
-    // controls.minPolarAngle = 45 * Math.PI / 180;
     // 雪花动画
     function renderSnow() {
         var time = Date.now() * 0.00005;
@@ -153,4 +145,12 @@ window.onload = function () {
         renderer.render(scene, camera);
     }
     animate();
+
+    // 拖拽交互
+    var controls = new OrbitControls(camera, renderer.domElement);
+    controls.target.set(0, 0, 0);
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 0.5;
+    controls.maxPolarAngle = 90 * Math.PI / 180;
+    controls.minPolarAngle = 45 * Math.PI / 180;
 }

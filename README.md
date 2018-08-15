@@ -1,6 +1,11 @@
 # 介绍
 
 这个是3d的，2d在[这里](https://github.com/uncoder-/happyNewYear)
+
+## 1.下雪的场景
+使用网格系统
+
+
 # 运行
 
 ```shell
