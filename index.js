@@ -2,7 +2,7 @@
  * @Author: uncoder 
  * @Date: 2018-01-17 15:38:47 
  * @Last Modified by: uncoder-fe
- * @Last Modified time: 2018-08-15 17:03:12
+ * @Last Modified time: 2018-08-15 17:06:04
  */
 
 import * as THREE from 'three';
@@ -126,8 +126,9 @@ window.onload = function () {
             } else {
                 sprite.position.y = Math.random() * height + 500;
             }
-            var scale = Math.sin(step) * 0.35 + 15;
-            sprite.scale.set(scale, scale, 1.0);
+            // 放大效果
+            // var scale = Math.sin(step) * 0.35 + 15;
+            // sprite.scale.set(scale, scale, 1.0);
         }
     }
     // 动画
