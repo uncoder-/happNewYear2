@@ -2,7 +2,7 @@
  * @Author: uncoder 
  * @Date: 2018-01-17 15:38:47 
  * @Last Modified by: uncoder-fe
- * @Last Modified time: 2018-08-15 17:12:31
+ * @Last Modified time: 2018-08-15 17:13:19
  */
 
 import * as THREE from 'three';
@@ -114,7 +114,7 @@ window.onload = function () {
             var delayMoveTime = sprite.delayMoveTime;
             var position = sprite.position;
             // 自转圈圈
-            sprite.material.rotation += 0.01 * (i / l);
+            // sprite.material.rotation += 0.01 * (i / l);
             if (delayCount < delayMoveTime) {
                 delayCount++;
                 sprite.delayCount = delayCount;
