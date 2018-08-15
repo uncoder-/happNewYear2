@@ -2,7 +2,7 @@
  * @Author: uncoder 
  * @Date: 2018-01-17 15:38:47 
  * @Last Modified by: uncoder-fe
- * @Last Modified time: 2018-08-15 16:36:17
+ * @Last Modified time: 2018-08-15 16:57:18
  */
 
 import * as THREE from 'three';
@@ -147,10 +147,10 @@ window.onload = function () {
     animate();
 
     // 拖拽交互
-    var controls = new OrbitControls(camera, renderer.domElement);
-    controls.target.set(0, 0, 0);
-    controls.autoRotate = true;
-    controls.autoRotateSpeed = 0.5;
-    controls.maxPolarAngle = 90 * Math.PI / 180;
-    controls.minPolarAngle = 45 * Math.PI / 180;
+    // var controls = new OrbitControls(camera, renderer.domElement);
+    // controls.target.set(0, 0, 0);
+    // controls.autoRotate = true;
+    // controls.autoRotateSpeed = 0.5;
+    // controls.maxPolarAngle = 90 * Math.PI / 180;
+    // controls.minPolarAngle = 45 * Math.PI / 180;
 }
