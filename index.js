@@ -2,7 +2,7 @@
  * @Author: uncoder 
  * @Date: 2018-01-17 15:38:47 
  * @Last Modified by: uncoder-fe
- * @Last Modified time: 2018-08-15 16:57:18
+ * @Last Modified time: 2018-08-15 17:03:12
  */
 
 import * as THREE from 'three';
@@ -107,16 +107,14 @@ window.onload = function () {
     // scene.add(firework);
     // 雪花动画
     function renderSnow() {
-        var time = Date.now() * 0.00005;
         // 动画补偿
         for (var i = 0, l = snowPoints.children.length; i < l; i++) {
             var sprite = snowPoints.children[i];
             var delayCount = sprite.delayCount;
             var delayMoveTime = sprite.delayMoveTime;
             var position = sprite.position;
-            var material = sprite.material;
             // 自转圈圈
-            material.rotation += 0.01 * (i / l);
+            sprite.material.rotation += 0.01 * (i / l);
             if (delayCount < delayMoveTime) {
                 delayCount++;
                 sprite.delayCount = delayCount;
