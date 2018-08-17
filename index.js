@@ -2,15 +2,12 @@
  * @Author: uncoder 
  * @Date: 2018-01-17 15:38:47 
  * @Last Modified by: uncoder-fe
- * @Last Modified time: 2018-08-15 17:13:19
+ * @Last Modified time: 2018-08-17 15:46:19
  */
 
 import * as THREE from 'three';
 import { TweenLite } from "gsap/TweenMax";
 import Stats from 'stats.js';
-
-var OrbitControls = require('three-orbit-controls')(THREE)
-
 import { setAxis } from './src/axis';
 import { createWish2 } from './src/wish';
 import { createRocket } from './src/rocket';
@@ -20,12 +17,14 @@ import { createPlane } from './src/plane';
 import { createLight } from './src/light';
 import json from './src/fonts/font.json';
 
+const OrbitControls = require('three-orbit-controls')(THREE);
+
 // 获取浏览器窗口的宽高，后续会用
-var width = window.innerWidth;
-var height = window.innerHeight;
+const width = window.innerWidth;
+const height = window.innerHeight;
 // 初始化 stats
 function initStats() {
-    var stats = new Stats();
+    const stats = new Stats();
     stats.setMode(0); // 0: fps, 1: ms
     // Align top-left
     stats.domElement.style.position = 'absolute';
@@ -37,16 +36,16 @@ function initStats() {
 
 window.onload = function () {
     // 初始化 stats
-    var stats = initStats();
+    let stats = initStats();
     // 字体需要异步加载后使用，因此我这里就先加载了字体。
     // 再来初始化，可能造成等待时间过长，
     // 因此需要我们对加载的字体进行删减优化
-    var loader = new THREE.FontLoader();
+    const loader = new THREE.FontLoader();
     const font = loader.parse(json);
-    var step = 0;
+    let step = 0;
 
     // 创建一个渲染器
-    var renderer = new THREE.WebGLRenderer();
+    const renderer = new THREE.WebGLRenderer();
     // 设置渲染器的清除颜色（即背景色）,尺寸,清晰度
     // renderer.setClearColor(0xffffff);
     renderer.setPixelRatio(window.devicePixelRatio);
@@ -56,30 +55,30 @@ window.onload = function () {
 
 
     // 创建一个场景
-    var scene = new THREE.Scene();
+    const scene = new THREE.Scene();
     // 创建一个具有透视效果的摄像机
     // 垂直视角，度数
-    var fav = 75;
+    const fav = 75;
     // 纵横比
-    var aspect = width / height;
-    var camera = new THREE.PerspectiveCamera(fav, aspect, 0.1, 1500);
+    const aspect = width / height;
+    const camera = new THREE.PerspectiveCamera(fav, aspect, 0.1, 1500);
     camera.position.set(666, 666, 666);
     camera.lookAt(new THREE.Vector3(0, 333, 0));
 
     // 坐标轴
-    var axis = setAxis();
+    const axis = setAxis();
     // 灯光
-    var lg = createLight();
+    const lg = createLight();
     // 地面
-    var plane = createPlane();
+    const plane = createPlane();
     // 雪花
-    var snowPoints = createSnow2();
+    const snowPoints = createSnow2();
     // 火箭队
-    var rockets = createRocket();
+    const rockets = createRocket();
     // 火箭队动画
-    for (var i = 0, l = rockets.length; i < l; i++) {
+    for (let i = 0, l = rockets.length; i < l; i++) {
         ((i) => {
-            var rocket = rockets[i];
+            const rocket = rockets[i];
             const { x, y, z } = rocket.toPosition;
             TweenLite.to(rocket.position, 2.5, {
                 x, y, z,
@@ -108,11 +107,11 @@ window.onload = function () {
     // 雪花动画
     function renderSnow() {
         // 动画补偿
-        for (var i = 0, l = snowPoints.children.length; i < l; i++) {
-            var sprite = snowPoints.children[i];
-            var delayCount = sprite.delayCount;
-            var delayMoveTime = sprite.delayMoveTime;
-            var position = sprite.position;
+        for (let i = 0, l = snowPoints.children.length; i < l; i++) {
+            const sprite = snowPoints.children[i];
+            let delayCount = sprite.delayCount;
+            const delayMoveTime = sprite.delayMoveTime;
+            const position = sprite.position;
             // 自转圈圈
             // sprite.material.rotation += 0.01 * (i / l);
             if (delayCount < delayMoveTime) {
@@ -127,7 +126,7 @@ window.onload = function () {
                 sprite.position.y = Math.random() * height + 500;
             }
             // 放大效果
-            var scale = Math.sin(step) * 0.35 + 15;
+            const scale = Math.sin(step) * 0.35 + 15;
             sprite.scale.set(scale, scale, 1.0);
         }
     }
@@ -146,7 +145,7 @@ window.onload = function () {
     animate();
 
     // 拖拽交互
-    // var controls = new OrbitControls(camera, renderer.domElement);
+    // const controls = new OrbitControls(camera, renderer.domElement);
     // controls.target.set(0, 0, 0);
     // controls.autoRotate = true;
     // controls.autoRotateSpeed = 0.5;
