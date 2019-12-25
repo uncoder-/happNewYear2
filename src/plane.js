@@ -1,28 +1,33 @@
 import * as THREE from 'three';
 
-// 地面
-export function createPlane() {
-    var x = 0, y = 0;
+const topLeft = new THREE.Color(0x00ffff);
+const topRight = new THREE.Color(0xffffff);
+const bottomRight = new THREE.Color(0xff00ff);
+const bottomLeft = new THREE.Color(0xffffff);
+const data = new Uint8Array([
+    Math.round(bottomLeft.r * 255),
+    Math.round(bottomLeft.g * 255),
+    Math.round(bottomLeft.b * 255),
+    Math.round(bottomRight.r * 255),
+    Math.round(bottomRight.g * 255),
+    Math.round(bottomRight.b * 255),
+    Math.round(topLeft.r * 255),
+    Math.round(topLeft.g * 255),
+    Math.round(topLeft.b * 255),
+    Math.round(topRight.r * 255),
+    Math.round(topRight.g * 255),
+    Math.round(topRight.b * 255)
+]);
+const backgroundTexture = new THREE.DataTexture(data, 2, 2, THREE.RGBFormat);
+backgroundTexture.magFilter = THREE.LinearFilter;
+backgroundTexture.needsUpdate = true;
+const material = new THREE.MeshStandardMaterial({
+    // color: 0xffffff,
+    map: backgroundTexture
+});
+const geometry = new THREE.BoxBufferGeometry(100, 1, 100);
+const mesh = new THREE.Mesh(geometry, material);
+mesh.receiveShadow = true;
+mesh.position.set(0, -2, 0);
 
-    var heartShape = new THREE.Shape();
-
-    heartShape.moveTo(x + 5, y + 5);
-    heartShape.bezierCurveTo(x + 5, y + 5, x + 4, y, x, y);
-    heartShape.bezierCurveTo(x - 6, y, x - 6, y + 7, x - 6, y + 7);
-    heartShape.bezierCurveTo(x - 6, y + 11, x - 3, y + 15.4, x + 5, y + 19);
-    heartShape.bezierCurveTo(x + 12, y + 15.4, x + 16, y + 11, x + 16, y + 7);
-    heartShape.bezierCurveTo(x + 16, y + 7, x + 16, y, x + 10, y);
-    heartShape.bezierCurveTo(x + 7, y, x + 5, y + 5, x + 5, y + 5);
-
-    var geometry = new THREE.ShapeBufferGeometry(heartShape);
-    var material = new THREE.MeshBasicMaterial({
-        color: 0xff2200
-    });
-    var plane = new THREE.Mesh(geometry, material);
-    // 以自身中心为旋转轴，绕 x 轴顺时针旋转 45 度
-    plane.rotation.x = 1.5 * Math.PI;
-    plane.rotation.z = -0.75 * Math.PI;
-    plane.scale.set(50, 30, 30);
-    plane.position.set(70, 0, -35);
-    return plane;
-}
+export default mesh;

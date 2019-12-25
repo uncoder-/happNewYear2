@@ -1,33 +1,20 @@
 import * as THREE from 'three';
-const initConfig = require('./config');
+import { TweenLite, TimelineLite, TimelineMax, Expo } from 'gsap/TweenMax';
 
-// 小火箭
-function Rocket(x, y, z) {
-    var group = new THREE.Group();
-    // 火箭帽🚀
-    var geometry = new THREE.ConeGeometry(7, 5, 32);
-    var material = new THREE.MeshBasicMaterial({ color: 0xffff00 });
-    var head = new THREE.Mesh(geometry, material);
-    head.position.set(x, 10 + y, z);
-    group.add(head);
+function Rocket() {
     // 火箭体
-    var geometry = new THREE.CylinderGeometry(5, 1, 8, 32);
-    var material = new THREE.MeshBasicMaterial({ color: 0xffff00 });
-    var body = new THREE.Mesh(geometry, material);
-    body.position.set(x, 4 + y, z);
-    group.add(body);
+    const gb = new THREE.CylinderGeometry(4, 4, 6, 16);
+    const gbm = new THREE.MeshStandardMaterial({
+        color: new THREE.Color('rgb(255,0,0)')
+    });
+    const body = new THREE.Mesh(gb, gbm);
+    body.castShadow = true;
+    body.receiveShadow = true;
     // 火箭尾巴
-    return group;
+    return body;
 }
-export function createRocket() {
-    const group = [];
-    for (let i = 0; i < initConfig.rocketPosition.length; i++) {
-        const { x, y, z } = initConfig.rocketPosition[i];
-        const rocket = Rocket(0, 0, 0);
-        rocket.toPosition = {
-            x, y, z
-        }
-        group.push(rocket);
-    }
-    return group;
-}
+
+const rocket = new Rocket();
+rocket.position.set(0, 0, 20);
+rocket.userData.key = 'rocket';
+export { rocket };
