@@ -5,7 +5,7 @@ import moonImage2 from './assets/ldem_3_8bit.jpg';
 const textureLoader = new THREE.TextureLoader();
 const texture = textureLoader.load(moonImage);
 const displacementMap = textureLoader.load(moonImage2);
-const moonGeometry = new THREE.SphereGeometry(15, 50, 50);
+const moonGeometry = new THREE.SphereGeometry(10, 50, 50);
 const moonMaterial = new THREE.MeshPhongMaterial({
     color: 0xffffff,
     map: texture,
@@ -18,5 +18,5 @@ const moonMaterial = new THREE.MeshPhongMaterial({
 });
 
 const moon = new THREE.Mesh(moonGeometry, moonMaterial);
-moon.position.set(-200, 150, -200);
+moon.position.set(-70, 150, -200);
 export { moon };

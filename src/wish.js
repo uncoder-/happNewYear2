@@ -23,16 +23,15 @@ for (let i = 0; i < str.length; i++) {
     textMesh.castShadow = true;
     textMesh.receiveShadow = true;
     textMesh.position.set((i - 1) * 20, 0, 0);
-    const timeline = new TimelineMax({ paused: true });
-    timeline.to(textMesh.position, 1, {
-        x: (i - 1) * 20,
-        y: 10,
-        z: 0,
-        ease: Expo.easeInOut
-    });
     textMesh.userData.key = 'wishes';
     textMesh.userData.animate = () => {
-        timeline.play();
+        const tl = gasp.timeline();
+        tl.to(textMesh.position, 1, {
+            x: (i - 1) * 20,
+            y: 10,
+            z: 0,
+            ease: Expo.easeInOut
+        });
     };
     wishes.add(textMesh);
 }

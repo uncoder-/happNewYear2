@@ -6,10 +6,10 @@ import { lightGroup } from './light';
 import { moon } from './moon';
 import plane from './plane';
 import { snows, snowsAnimate } from './snow';
-// import { wishes } from './wish';
+import { wishes } from './wish';
 import { rocket } from './rocket';
-// import { genFirework } from './firework';
-// import { genFirework2 } from './firework2';
+import { genFirework } from './firework';
+import { genFirework2 } from './firework2';
 import { genFirework3 } from './firework3';
 import { genFirework4 } from './firework4';
 import { genHeart } from './heart';
@@ -66,7 +66,7 @@ scene.add(lightGroup);
 scene.add(moon);
 scene.add(plane);
 scene.add(snows);
-// scene.add(wishes);
+scene.add(wishes);
 scene.add(rocket);
 // scene.add(fire);
 // end
@@ -102,7 +102,10 @@ window.addEventListener('mousedown', event => {
             scene.add(heart);
             heart.userData.animate(() => {
                 scene.remove(heart);
-                const firework = genFirework3(0, endY, 20, color);
+                const firework =
+                    Math.random() < 0.5
+                        ? genFirework3(0, endY, 20, color)
+                        : genFirework4(0, endY, 20, color);
                 scene.add(firework);
                 firework.userData.animate(() => {
                     scene.remove(firework);

@@ -2,9 +2,6 @@ import * as THREE from 'three';
 import gsap from 'gsap';
 import snow1 from './assets/snow-1.png';
 
-function random(min, max) {
-    return Math.random() * (max - min) + min;
-}
 // Set friction.
 const friction = 0.95;
 // Set gravity.
