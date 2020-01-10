@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-import { TweenLite, TimelineLite, TimelineMax, Expo } from 'gsap/TweenMax';
 
 function Rocket() {
     // 火箭体

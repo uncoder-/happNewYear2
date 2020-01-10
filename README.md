@@ -2,15 +2,11 @@
 
 这个是 3d 的，2d 在[这里](https://github.com/uncoder-/happyNewYear)
 
-## 1.下雪的场景
-
-使用网格系统
-
 # 运行
 
 ```shell
-yarn
-yarn start
+npm i
+npm start
 ```
 
 ## threejs 学习
@@ -33,8 +29,8 @@ yarn start
 
 1. 默认方向是正 Z 轴看向负 Z 轴，即向屏幕里面看
 2. 位置 position
-3. 放置 up，以那个方向为上方，平放，侧放。
-4. 看向 lookAt
+3. 放置 up（放着看，被动）
+4. 看向 lookAt（自己看，主动）
 
 ## 字体
 

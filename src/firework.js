@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { TimelineMax, Expo } from 'gsap/TweenMax';
+import gsap from 'gsap';
 
 // 烟花
 function genFirework(x, y, z, c) {
@@ -36,33 +36,33 @@ function genFirework(x, y, z, c) {
             depthTest: false
         })
     );
-    const timeline = new TimelineMax({ paused: true });
-    timeline.to({ percent: 1 }, 2, {
-        percent: 100,
-        onUpdateParams: ['{self}'],
-        onUpdate: tl => {
-            const progress = tl.progress();
-            // console.log(progress);
-            geometry.vertices.forEach(fire => {
-                const { startPosition, endPosition } = fire;
-                const { x, y, z } = startPosition;
-                fire.x = x + (endPosition.x - x) * progress;
-                fire.y = y + (endPosition.y - y) * progress;
-                fire.z = z + (endPosition.z - z) * progress;
-            });
-            geometry.verticesNeedUpdate = true;
-            // 修改透明度
-            mesh.material.opacity = 1.25 - progress;
-            mesh.material.colorsNeedUpdate = true;
-        },
-        onComplete: () => {},
-        ease: Expo.easeOut
-    });
+
     mesh.userData.animate = callback => {
-        timeline.play();
-        if (callback) {
-            timeline.addCallback(callback);
-        }
+        const tl = gsap.timeline();
+        tl.to({ percent: 1 }, 2, {
+            percent: 100,
+            onUpdate: function() {
+                const progress = this.progress();
+                // console.log(progress);
+                geometry.vertices.forEach(fire => {
+                    const { startPosition, endPosition } = fire;
+                    const { x, y, z } = startPosition;
+                    fire.x = x + (endPosition.x - x) * progress;
+                    fire.y = y + (endPosition.y - y) * progress;
+                    fire.z = z + (endPosition.z - z) * progress;
+                });
+                geometry.verticesNeedUpdate = true;
+                // 修改透明度
+                mesh.material.opacity = 1.25 - progress;
+                mesh.material.colorsNeedUpdate = true;
+            },
+            onComplete: () => {
+                if (callback) {
+                    callback();
+                }
+            },
+            ease: 'expo.easeOut'
+        });
     };
     return mesh;
 }

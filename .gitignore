@@ -4,3 +4,4 @@ yarn.lock
 .cache
 dist
 package-lock.json
+.vscode

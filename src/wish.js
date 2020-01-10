@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { TweenLite, TimelineLite, TimelineMax, Expo } from 'gsap/TweenMax';
+import gsap from 'gsap';
 import json from './assets/font.json';
 
 const loader = new THREE.FontLoader();

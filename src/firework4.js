@@ -2,25 +2,37 @@ import * as THREE from 'three';
 import gsap from 'gsap';
 import snow1 from './assets/snow-1.png';
 
+function random(min, max) {
+    return Math.random() * (max - min) + min;
+}
+// Set friction.
+const friction = 0.95;
+// Set gravity.
+const gravity = 0.7;
 // 烟花
-function genFirework3(sx, sy, sz, c) {
+function genFirework4(sx, sy, sz, c) {
     const geometry = new THREE.BufferGeometry();
     const positions = [];
     const colors = [];
     const sizes = [];
     const opacitys = [];
     const speeds = [];
-    const particles = 100;
+    const angles = [];
+    const particles = 120;
     for (let i = 0; i < particles; i++) {
         // 初始位置
         positions.push(sx, sy, sz);
         // speeds
-        const a = THREE.Math.randFloat(-1, 1) * Math.PI;
-        const b = THREE.Math.randFloat(-1, 1) * 0.5 * Math.PI;
-        const velocityX = Math.cos(a) * Math.sin(b);
-        const velocityY = Math.sin(a) * Math.sin(b);
-        const velocityZ = (Math.random() < 0.5 ? -1 : 1) * Math.cos(b);
-        speeds.push(velocityX, velocityY, velocityZ);
+        const angleX = THREE.Math.randFloat(-1, 1) * Math.PI;
+        const angleY = angleX;
+        const angleZ =
+            (Math.random() < 0.5 ? -1 : 1) *
+            THREE.Math.randFloat(-1, 1) *
+            0.5 *
+            Math.PI;
+        angles.push(angleX, angleY, angleZ);
+        const speed = THREE.Math.randFloat(-3, 3);
+        speeds.push(speed);
         // colors
         colors.push(c.r, c.g, c.b);
         // scales
@@ -82,33 +94,19 @@ function genFirework3(sx, sy, sz, c) {
                 // 位置
                 const position = geometry.attributes.position.array;
                 for (let i = 0; i < position.length; i += 3) {
-                    position[i] += speeds[i];
-                    position[i + 1] += speeds[i + 1];
-                    position[i + 2] += speeds[i + 2];
-                    color[i] += speeds[i] / 12;
-                    color[i + 1] += speeds[i + 1] / 12;
-                    color[i + 2] += speeds[i + 2] / 12;
+                    const angleX = angles[i];
+                    const angleY = angles[i + 1];
+                    const angleZ = angles[i + 2];
+                    let speed = speeds[i / 3] * friction;
+                    speeds[i / 3] = speed;
+                    position[i] += speed * Math.cos(angleX);
+                    position[i + 1] += speed * Math.sin(angleY) - gravity;
+                    position[i + 2] += speed * Math.cos(angleZ);
+                    color[i] += (speed * angleX) / 12;
+                    color[i + 1] += (speed * angleY) / 12;
+                    color[i + 2] += (speed * angleZ) / 12;
                 }
-                geometry.attributes.color.needsUpdate = true;
-                geometry.attributes.position.needsUpdate = true;
-            },
-            ease: 'expo.out'
-        }).to({ percent: 1 }, 0.75, {
-            percent: 100,
-            onUpdate: function() {
-                const progress = this.progress();
-                // 位置
-                const position = geometry.attributes.position.array;
-                for (let i = 0; i < position.length; i += 3) {
-                    position[i] += speeds[i];
-                    position[i + 1] -= 0.5 * 5 * progress * progress;
-                    position[i + 2] += speeds[i + 2];
-                }
-                const opacitys = geometry.attributes.opacity.array;
-                for (let i = 0; i < particles; i++) {
-                    opacitys[i] = 0.5 - 0.5 * progress;
-                }
-                geometry.attributes.opacity.needsUpdate = true;
+                // geometry.attributes.color.needsUpdate = true;
                 geometry.attributes.position.needsUpdate = true;
             },
             onComplete: () => {
@@ -116,10 +114,10 @@ function genFirework3(sx, sy, sz, c) {
                     callback();
                 }
             },
-            ease: 'expo.easeOut'
+            ease: 'circ.out'
         });
     };
     return mesh;
 }
 
-export { genFirework3 };
+export { genFirework4 };

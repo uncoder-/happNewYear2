@@ -6,11 +6,12 @@ import { lightGroup } from './light';
 import { moon } from './moon';
 import plane from './plane';
 import { snows, snowsAnimate } from './snow';
-import { wishes } from './wish';
+// import { wishes } from './wish';
 import { rocket } from './rocket';
-import { genFirework } from './firework';
-import { genFirework2 } from './firework2';
+// import { genFirework } from './firework';
+// import { genFirework2 } from './firework2';
 import { genFirework3 } from './firework3';
+import { genFirework4 } from './firework4';
 import { genHeart } from './heart';
 
 // 状态
@@ -65,7 +66,7 @@ scene.add(lightGroup);
 scene.add(moon);
 scene.add(plane);
 scene.add(snows);
-scene.add(wishes);
+// scene.add(wishes);
 scene.add(rocket);
 // scene.add(fire);
 // end
@@ -112,3 +113,13 @@ window.addEventListener('mousedown', event => {
         }
     }
 });
+
+// Observe a scene or a renderer
+if (typeof __THREE_DEVTOOLS__ !== 'undefined') {
+    __THREE_DEVTOOLS__.dispatchEvent(
+        new CustomEvent('observe', { detail: scene })
+    );
+    __THREE_DEVTOOLS__.dispatchEvent(
+        new CustomEvent('observe', { detail: renderer })
+    );
+}

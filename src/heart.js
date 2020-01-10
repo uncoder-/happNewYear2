@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import gsap from 'gsap';
 
 function genHeart(sx, sy, sz, endY, color) {
     const heartShape = new THREE.Shape();
@@ -29,27 +30,28 @@ function genHeart(sx, sy, sz, endY, color) {
     heart.scale.set(0.01, 0.01, 0.01);
     heart.position.set(sx, sy, sz);
     heart.userData.key = 'heart';
-    // 动画
-    const timeline = new TimelineMax({ paused: true });
-    timeline.to({ percent: 1 }, 1, {
-        percent: 100,
-        onUpdateParams: ['{self}'],
-        onUpdate: tl => {
-            const progress = tl.progress();
-            heart.position.set(sx, endY * progress, sz);
-            heart.scale.set(
-                0.01 + progress / 10,
-                0.01 + progress / 4,
-                0.01 + progress / 4
-            );
-        },
-        ease: Expo.easeIn
-    });
+
     heart.userData.animate = callback => {
-        timeline.play();
-        if (callback) {
-            timeline.addCallback(callback);
-        }
+        // 动画
+        const tl = gsap.timeline();
+        tl.to({ percent: 1 }, 1, {
+            percent: 100,
+            onUpdate: function(t) {
+                const progress = this.progress();
+                heart.position.set(sx, endY * progress, sz);
+                heart.scale.set(
+                    0.01 + progress / 10,
+                    0.01 + progress / 4,
+                    0.01 + progress / 4
+                );
+            },
+            onComplete: () => {
+                if (callback) {
+                    callback();
+                }
+            },
+            ease: 'expo.easeIn'
+        });
     };
     return heart;
 }
