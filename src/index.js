@@ -71,7 +71,15 @@ window.onload = async function() {
     scene.add(moon);
     scene.add(plane);
     scene.add(snows);
-    scene.add(wishes);
+    for (let i = 0; i < wishes.length; i++) {
+        // 万事如意
+        if (i < 4) {
+            wishes[i].position.set(-22, -(i - 3) * 8 + 10, 22);
+        } else {
+            wishes[i].position.set(25, -(i - 7) * 8 + 10, 22);
+        }
+        scene.add(wishes[i]);
+    }
     scene.add(rocket);
     // scene.add(fire);
     // end
@@ -81,6 +89,16 @@ window.onload = async function() {
         stats.begin();
         snowsAnimate(snows.geometry, step);
         renderer.render(scene, camera);
+        if (step <= 1000) {
+            for (let i = 0; i < wishes.length; i++) {
+                wishes[i].rotation.y += 0.03 * (i % 2 == 0 ? -1 : 1);
+            }
+        } else {
+            for (let i = 0; i < wishes.length; i++) {
+                wishes[i].rotation.y += step / 20000;
+            }
+        }
+
         // controls.update();
         step++;
         stats.end();
@@ -112,8 +130,8 @@ window.onload = async function() {
                     play(audioBoomData);
                     const firework =
                         Math.random() < 0.5
-                        // false
-                            ? genFirework3(0, endY, 0, color)
+                            ? // false
+                              genFirework3(0, endY, 0, color)
                             : genFirework4(0, endY, 0, color);
                     scene.add(firework);
                     firework.userData.animate(() => {

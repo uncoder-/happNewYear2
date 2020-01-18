@@ -5,14 +5,15 @@ import json from './assets/font.json';
 const loader = new THREE.FontLoader();
 const font = loader.parse(json);
 
-const wishes = new THREE.Group();
-wishes.castShadow = true;
+const wishes = [];
+// wishes.castShadow = true;
 wishes.receiveShadow = true;
-const str = '新年好'.split('');
+const str = '身体健康万事如意'.split('');
 for (let i = 0; i < str.length; i++) {
+    const g = new THREE.Group();
     const textGeo = new THREE.TextGeometry(str[i], {
         font,
-        size: 4,
+        size: 2.5,
         height: 1
     });
     //为每个点附上材质
@@ -21,20 +22,20 @@ for (let i = 0; i < str.length; i++) {
     });
     const textMesh = new THREE.Mesh(textGeo, material);
     textMesh.castShadow = true;
-    textMesh.receiveShadow = true;
-    textMesh.position.set((i - 1) * 10, 0, 0);
+    // 设置自转轴
+    textMesh.position.set(-5, 0, -2);
     textMesh.userData.key = 'wishes';
     textMesh.userData.animate = () => {
-        const tl = gasp.timeline();
+        const tl = gsap.timeline();
         tl.to(textMesh.position, 1, {
             x: (i - 1) * 20,
             y: 10,
             z: 0,
-            ease: Expo.easeInOut
+            ease: 'expo.easeInOut'
         });
     };
-    wishes.add(textMesh);
+    g.add(textMesh);
+    wishes.push(g);
 }
-wishes.position.set(-17, 0, 3);
-// wishes.rotation.x = -Math.PI / 8;
+
 export { wishes };
