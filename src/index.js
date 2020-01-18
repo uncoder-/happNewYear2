@@ -4,7 +4,7 @@ const OrbitControls = require('three-orbit-controls')(THREE);
 // 地板
 import { lightGroup } from './light';
 import { moon } from './moon';
-import plane from './plane';
+import plane from './plane-heart';
 import { snows, snowsAnimate } from './snow';
 import { wishes } from './wish';
 import { rocket } from './rocket';
@@ -29,9 +29,9 @@ window.onload = async function() {
         1,
         4000
     );
-    camera.position.set(0, 40, 190);
+    camera.position.set(0, 66, 170);
     // camera.up.set(0, 0, 0);
-    // camera.lookAt(1000, 100, 0);
+    // camera.lookAt(0, 0, 0);
 
     // 场景
     const scene = new THREE.Scene();
@@ -103,7 +103,7 @@ window.onload = async function() {
             if (userData.key === 'rocket') {
                 const color = new THREE.Color().setHSL(Math.random(), 1, 0.5);
                 const endY = THREE.Math.randInt(70, 90);
-                const heart = genHeart(0, 0, 20, endY, color);
+                const heart = genHeart(0, 0, 0, endY, color);
                 scene.add(heart);
                 // 音频
                 play(audioAshData);
@@ -112,8 +112,9 @@ window.onload = async function() {
                     play(audioBoomData);
                     const firework =
                         Math.random() < 0.5
-                            ? genFirework3(0, endY, 20, color)
-                            : genFirework4(0, endY, 20, color);
+                        // false
+                            ? genFirework3(0, endY, 0, color)
+                            : genFirework4(0, endY, 0, color);
                     scene.add(firework);
                     firework.userData.animate(() => {
                         scene.remove(firework);

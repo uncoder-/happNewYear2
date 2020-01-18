@@ -18,5 +18,5 @@ const moonMaterial = new THREE.MeshPhongMaterial({
 });
 
 const moon = new THREE.Mesh(moonGeometry, moonMaterial);
-moon.position.set(-70, 150, -200);
+moon.position.set(-50, 120, -250);
 export { moon };

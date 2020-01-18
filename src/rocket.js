@@ -23,8 +23,8 @@ function Rocket() {
             map: baozhuTexture
             // side: THREE.DoubleSide
         }),
-        new THREE.MeshPhongMaterial({ color: 0xdd3123 }),
-        new THREE.MeshPhongMaterial({ color: 0xdd3123 })
+        new THREE.MeshPhongMaterial({ color: 0xff2200 }),
+        new THREE.MeshPhongMaterial({ color: 0xff2200 })
     ];
     const body = new THREE.Mesh(geometry, materials);
     body.rotation.y = Math.PI / 2;
@@ -35,6 +35,6 @@ function Rocket() {
 }
 
 const rocket = new Rocket();
-rocket.position.set(0, 4, 20);
+rocket.position.set(0, 4, 0);
 rocket.userData.key = 'rocket';
 export { rocket };

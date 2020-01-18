@@ -3,7 +3,7 @@ import gsap from 'gsap';
 import snow1 from './assets/yuanbao.png';
 
 // Set friction.
-const friction = 0.95;
+const friction = 0.93;
 // Set gravity.
 const gravity = 0.7;
 // 烟花
@@ -21,7 +21,7 @@ function genFirework4(sx, sy, sz, c) {
         positions.push(sx, sy, sz);
         // speeds
         const angleX = THREE.Math.randFloat(-1, 1) * Math.PI;
-        const angleY = angleX;
+        const angleY = THREE.Math.randFloat(-1, 1) * Math.PI;
         const angleZ =
             (Math.random() < 0.5 ? -1 : 1) *
             THREE.Math.randFloat(-1, 1) *

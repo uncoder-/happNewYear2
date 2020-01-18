@@ -29,7 +29,7 @@ helper.update();
 const pointLight = new THREE.PointLight(0xffffff, 1, 1000);
 pointLight.castShadow = true;
 // pointLight.shadow.camera.zoom.set(0.01, 1.5, 0.01);
-pointLight.position.set(0, 200, 200);
+pointLight.position.set(0, 100, 200);
 lightGroup.add(pointLight);
 
 const helper2 = new THREE.PointLightHelper(pointLight, 10);

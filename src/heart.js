@@ -30,7 +30,8 @@ function genHeart(sx, sy, sz, endY, color) {
     heart.scale.set(0.01, 0.01, 0.01);
     heart.position.set(sx, sy, sz);
     heart.userData.key = 'heart';
-
+    // heart.rotateY(Math.PI / 4);
+    heart.rotation.y = 0;
     heart.userData.animate = callback => {
         // 动画
         const tl = gsap.timeline();
@@ -44,6 +45,7 @@ function genHeart(sx, sy, sz, endY, color) {
                     0.01 + progress / 4,
                     0.01 + progress / 4
                 );
+                heart.rotation.y += progress / 4;
             },
             onComplete: () => {
                 if (callback) {
