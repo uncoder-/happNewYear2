@@ -108,8 +108,8 @@ window.onload = async function() {
                 // 音频
                 play(audioAshData);
                 heart.userData.animate(() => {
-                    play(audioBoomData);
                     scene.remove(heart);
+                    play(audioBoomData);
                     const firework =
                         Math.random() < 0.5
                             ? genFirework3(0, endY, 20, color)

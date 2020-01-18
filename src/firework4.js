@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import gsap from 'gsap';
-import snow1 from './assets/snow-1.png';
+import snow1 from './assets/yuanbao.png';
 
 // Set friction.
 const friction = 0.95;
@@ -103,7 +103,7 @@ function genFirework4(sx, sy, sz, c) {
                     color[i + 1] += (speed * angleY) / 12;
                     color[i + 2] += (speed * angleZ) / 12;
                 }
-                // geometry.attributes.color.needsUpdate = true;
+                geometry.attributes.color.needsUpdate = true;
                 geometry.attributes.position.needsUpdate = true;
             },
             onComplete: () => {

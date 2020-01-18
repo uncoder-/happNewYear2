@@ -4,9 +4,9 @@ import bao from './assets/baozhu-32267914_3.jpg';
 function Rocket() {
     // 火箭体
     const geometry = new THREE.CylinderGeometry(
-        8,
-        8,
-        12,
+        5,
+        5,
+        10,
         64,
         1,
         false,
@@ -23,8 +23,8 @@ function Rocket() {
             map: baozhuTexture
             // side: THREE.DoubleSide
         }),
-        new THREE.MeshPhongMaterial({ color: 0x0000ff }),
-        new THREE.MeshPhongMaterial({ color: 0x0000ff })
+        new THREE.MeshPhongMaterial({ color: 0xdd3123 }),
+        new THREE.MeshPhongMaterial({ color: 0xdd3123 })
     ];
     const body = new THREE.Mesh(geometry, materials);
     body.rotation.y = Math.PI / 2;
