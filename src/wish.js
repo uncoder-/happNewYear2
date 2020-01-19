@@ -18,7 +18,10 @@ for (let i = 0; i < str.length; i++) {
     });
     //为每个点附上材质
     const material = new THREE.MeshStandardMaterial({
-        color: new THREE.Color('rgb(255, 0, 0)')
+        color:
+            i % 2 == 0
+                ? new THREE.Color('rgb(242, 85, 0)')
+                : new THREE.Color('rgb(242, 190, 69)')
     });
     const textMesh = new THREE.Mesh(textGeo, material);
     textMesh.castShadow = true;

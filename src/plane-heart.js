@@ -24,9 +24,9 @@ const extrudeSettings = {
 };
 
 const geometry = new THREE.ExtrudeBufferGeometry(heartShape, extrudeSettings);
-const topLeft = new THREE.Color(0xff00ff);
+const topLeft = new THREE.Color(0xc77a3a);
 const topRight = new THREE.Color(0xffeedd);
-const bottomRight = new THREE.Color(0xff00ff);
+const bottomRight = new THREE.Color(0xc77a3a);
 const bottomLeft = new THREE.Color(0xff2200);
 const data = new Uint8Array([
     Math.round(bottomLeft.r * 255),
@@ -46,7 +46,7 @@ const backgroundTexture = new THREE.DataTexture(data, 1, 1, THREE.RGBFormat);
 backgroundTexture.magFilter = THREE.LinearFilter;
 backgroundTexture.needsUpdate = true;
 const material = new THREE.MeshStandardMaterial({
-    color: 0xffffff,
+    color: new THREE.Color('rgb(242, 190, 69)'),
     // map: backgroundTexture
 });
 const plane = new THREE.Mesh(geometry, material);

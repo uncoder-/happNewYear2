@@ -89,14 +89,9 @@ window.onload = async function() {
         stats.begin();
         snowsAnimate(snows.geometry, step);
         renderer.render(scene, camera);
-        if (step <= 1000) {
-            for (let i = 0; i < wishes.length; i++) {
-                wishes[i].rotation.y += 0.03 * (i % 2 == 0 ? -1 : 1);
-            }
-        } else {
-            for (let i = 0; i < wishes.length; i++) {
-                wishes[i].rotation.y += step / 20000;
-            }
+        
+        for (let i = 0; i < wishes.length; i++) {
+            wishes[i].rotation.y += 0.03 * (i % 2 == 0 ? -1 : 1);
         }
 
         // controls.update();
