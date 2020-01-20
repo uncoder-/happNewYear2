@@ -1,9 +1,8 @@
-import * as THREE from 'three';
-import gsap from 'gsap';
-import json from './assets/font.json';
+import gsap from '../web_modules/gsap.js';
+// const fontUrl = './src/assets/font.json';
 
 const loader = new THREE.FontLoader();
-const font = loader.parse(json);
+const font = loader.parse(fontJson);
 
 const wishes = [];
 // wishes.castShadow = true;

@@ -1,4 +1,4 @@
-import * as THREE from 'three';
+
 const lightGroup = new THREE.Group();
 
 // 半球光

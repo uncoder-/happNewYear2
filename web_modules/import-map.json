@@ -1,0 +1,8 @@
+{
+  "imports": {
+    "gsap": "./gsap.js",
+    "stats": "./stats.js",
+    "three": "./three.js",
+    "three-orbit-controls": "./three-orbit-controls.js"
+  }
+}

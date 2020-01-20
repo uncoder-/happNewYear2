@@ -5,9 +5,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         <title>新年快乐～</title>
-        <link rel="stylesheet" href="./index.less" />
-    </head>
-    <body>
+        <link rel="stylesheet" href="./index.css" />
+        <script type="module">
+            import Stats from 'https://s0.pstatp.com/cdn/expire-1-M/stats.js/17/Stats.js';
+            import * as THREE from 'https://s0.pstatp.com/cdn/expire-1-M/three.js/104/three.module.js';
+            window.Stats = Stats;
+            window.THREE = THREE;
+        </script>
         <script type="x-shader/x-vertex" id="vertexshader">
             attribute float size;
             varying vec3 vColor;
@@ -18,7 +22,6 @@
                 gl_Position = projectionMatrix * mvPosition;
             }
         </script>
-
         <script type="x-shader/x-fragment" id="fragmentshader">
             uniform sampler2D pointTexture;
             varying vec3 vColor;
@@ -50,6 +53,9 @@
                 gl_FragColor = gl_FragColor * texture2D( pointTexture, gl_PointCoord );
             }
         </script>
-        <script src="./src/index.js"></script>
+        <script src="./src/font.js"></script>
+    </head>
+    <body>
+        <script type="module" src="./src/index.js"></script>
     </body>
 </html>

@@ -1,6 +1,6 @@
-import * as THREE from 'three';
-import moonImage from './assets/lroc_color_poles_1k.jpg';
-import moonImage2 from './assets/ldem_3_8bit.jpg';
+
+const moonImage = './src/assets/lroc_color_poles_1k.jpg';
+const moonImage2 = './src/assets/ldem_3_8bit.jpg';
 
 const textureLoader = new THREE.TextureLoader();
 const texture = textureLoader.load(moonImage);

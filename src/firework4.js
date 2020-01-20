@@ -1,6 +1,5 @@
-import * as THREE from 'three';
-import gsap from 'gsap';
-import snow1 from './assets/yuanbao.png';
+import gsap from '../web_modules/gsap.js';
+const snow1 = './src/assets/yuanbao.png';
 
 // Set friction.
 const friction = 0.93;
@@ -9,6 +8,7 @@ const gravity = 0.7;
 // 烟花
 function genFirework4(sx, sy, sz, c) {
     const geometry = new THREE.BufferGeometry();
+
     const positions = [];
     const colors = [];
     const sizes = [];
@@ -37,22 +37,15 @@ function genFirework4(sx, sy, sz, c) {
         // opacity
         opacitys.push(1.0);
     }
-    geometry.setAttribute(
+    geometry.addAttribute(
         'position',
         new THREE.Float32BufferAttribute(positions, 3)
     );
-    geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
-    geometry.setAttribute(
-        'size',
-        new THREE.Float32BufferAttribute(sizes, 1).setUsage(
-            THREE.DynamicDrawUsage
-        )
-    );
-    geometry.setAttribute(
+    geometry.addAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+    geometry.addAttribute('size', new THREE.Float32BufferAttribute(sizes, 1));
+    geometry.addAttribute(
         'opacity',
-        new THREE.Float32BufferAttribute(opacitys, 1).setUsage(
-            THREE.DynamicDrawUsage
-        )
+        new THREE.Float32BufferAttribute(opacitys, 1)
     );
     const mesh = new THREE.Points(
         geometry,

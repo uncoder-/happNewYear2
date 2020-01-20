@@ -1,5 +1,5 @@
-import * as THREE from 'three';
-import bao from './assets/baozhu-32267914_3.jpg';
+
+const bao = './src/assets/baozhu-32267914_3.jpg';
 
 function Rocket() {
     // 火箭体

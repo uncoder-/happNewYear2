@@ -1,4 +1,4 @@
-import * as THREE from 'three';
+
 
 // 地面
 const x = 0;

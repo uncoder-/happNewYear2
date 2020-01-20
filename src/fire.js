@@ -1,5 +1,3 @@
-import * as THREE from 'three';
-
 const sx = 10;
 const sy = 10;
 const sz = 10;

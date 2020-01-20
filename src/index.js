@@ -1,23 +1,25 @@
-import * as THREE from 'three';
-import Stats from 'stats.js';
-const OrbitControls = require('three-orbit-controls')(THREE);
+import Controls from '../web_modules/three-orbit-controls.js';
+
 // 地板
-import { lightGroup } from './light';
-import { moon } from './moon';
-import plane from './plane-heart';
-import { snows, snowsAnimate } from './snow';
-import { wishes } from './wish';
-import { rocket } from './rocket';
-import { genFirework } from './firework';
-import { genFirework2 } from './firework2';
-import { genFirework3 } from './firework3';
-import { genFirework4 } from './firework4';
-import { genHeart } from './heart';
-import { initAudio, play } from './audio';
+import { lightGroup } from './light.js';
+import { moon } from './moon.js';
+import plane from './plane-heart.js';
+import { snows, snowsAnimate } from './snow.js';
+import { wishes } from './wish.js';
+import { rocket } from './rocket.js';
+import { genFirework } from './firework.js';
+import { genFirework2 } from './firework2.js';
+import { genFirework3 } from './firework3.js';
+import { genFirework4 } from './firework4.js';
+import { genHeart } from './heart.js';
+import { initAudio, play } from './audio.js';
+
+// 控制器
+const OrbitControls = Controls(THREE);
 
 window.onload = async function() {
-    const audioAshData = await initAudio('./assets/ash (mp3cut.net).mp3');
-    const audioBoomData = await initAudio('./assets/pow1.mp3');
+    const audioAshData = await initAudio('./src/assets/ash (mp3cut.net).mp3');
+    const audioBoomData = await initAudio('./src/assets/pow1.mp3');
     // 状态
     const stats = new Stats();
     stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
@@ -60,7 +62,7 @@ window.onload = async function() {
     controls.autoRotateSpeed = 0.5;
     controls.update();
     // 辅助线
-    const axisHelper = new THREE.AxesHelper(1000);
+    const axisHelper = new THREE.AxisHelper(1000);
     scene.add(axisHelper);
     // 辅助网格对象
     const gridHelper = new THREE.GridHelper(300, 300);
@@ -89,11 +91,9 @@ window.onload = async function() {
         stats.begin();
         snowsAnimate(snows.geometry, step);
         renderer.render(scene, camera);
-        
         for (let i = 0; i < wishes.length; i++) {
             wishes[i].rotation.y += 0.03 * (i % 2 == 0 ? -1 : 1);
         }
-
         // controls.update();
         step++;
         stats.end();

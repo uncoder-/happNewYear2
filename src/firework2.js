@@ -1,6 +1,5 @@
-import * as THREE from 'three';
-import gsap from 'gsap';
-import snow1 from './assets/snow-1.png';
+import gsap from '../web_modules/gsap.js';
+const snow1 = './src/assets/snow-1.png';
 // 粒子
 function Particle() {}
 
@@ -32,16 +31,14 @@ function genFirework2(sx, sy, sz, c) {
         colors.push(c.r, c.g, c.b);
         sizes.push(20);
     }
-    geometry.setAttribute(
+    geometry.addAttribute(
         'position',
         new THREE.Float32BufferAttribute(positions, 3)
     );
-    geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
-    geometry.setAttribute(
+    geometry.addAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+    geometry.addAttribute(
         'size',
-        new THREE.Float32BufferAttribute(sizes, 1).setUsage(
-            THREE.DynamicDrawUsage
-        )
+        new THREE.Float32BufferAttribute(sizes, 1)
     );
     const mesh = new THREE.Points(
         geometry,

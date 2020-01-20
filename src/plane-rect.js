@@ -1,4 +1,4 @@
-import * as THREE from 'three';
+
 
 const topLeft = new THREE.Color(0x00ffff);
 const topRight = new THREE.Color(0xffffff);

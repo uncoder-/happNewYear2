@@ -1,5 +1,4 @@
-import * as THREE from 'three';
-import gsap from 'gsap';
+import gsap from '../web_modules/gsap.js';
 
 // 烟花
 function genFirework(x, y, z, c) {

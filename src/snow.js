@@ -1,5 +1,5 @@
-import * as THREE from 'three';
-import snow1 from './assets/snow-1.png';
+
+const snow1 = './src/assets/snow-1.png';
 
 // 参数
 const distanceX = 2000;
@@ -46,7 +46,7 @@ const snowMaterial = new THREE.PointsMaterial({
     color: 0xffffff,
     size: 30,
     map: snowTexture,
-    lights: true,
+    // lights: true,
     // 带透明背景的图片需开启transparent
     transparent: true
     // 看情况而定,图片出现白边/黑边时设置为false
