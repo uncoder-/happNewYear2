@@ -3,7 +3,7 @@ const snow1 = './src/assets/snow-1.png';
 
 // 参数
 const distanceX = 2000;
-const distanceY = 1500;
+const distanceY = 2000;
 const distanceZ = 2000;
 
 const getPosition = i => {

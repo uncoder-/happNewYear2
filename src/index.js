@@ -31,7 +31,7 @@ window.onload = async function() {
         1,
         4000
     );
-    camera.position.set(0, 66, 170);
+    camera.position.set(0, 66, 190);
     // camera.up.set(0, 0, 0);
     // camera.lookAt(0, 0, 0);
 
@@ -62,8 +62,8 @@ window.onload = async function() {
     controls.autoRotateSpeed = 0.5;
     controls.update();
     // 辅助线
-    const axisHelper = new THREE.AxisHelper(1000);
-    scene.add(axisHelper);
+    const axisHelper = new THREE.AxesHelper(1000);
+    // scene.add(axisHelper);
     // 辅助网格对象
     const gridHelper = new THREE.GridHelper(300, 300);
     // scene.add(gridHelper);
