@@ -7,7 +7,8 @@
     "license": "ISC",
     "scripts": {
         "init": "npx snowpack --include src/**/*.js",
-        "start": "npx servor . index.html 1234 --reload"
+        "start": "npx servor . index.html 1234 --reload",
+        "build": "sh ./build.sh"
     },
     "dependencies": {
         "gsap": "^3.0.5",
